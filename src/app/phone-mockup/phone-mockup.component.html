@@ -1,0 +1,17 @@
+<div class="phone-frame" [style.width.px]="width" [style.height.px]="height">
+  <div class="phone-bezel">
+    <!-- Punch-hole camera -->
+    <div class="punch-hole"></div>
+    <!-- Screen content -->
+    <div class="phone-screen">
+      @if (screenshotSrc) {
+        <img [src]="screenshotSrc" class="screenshot" alt="Screenshot" />
+      } @else {
+        <div class="placeholder">
+          <span>📱</span>
+          <p>Ajoutez un screenshot</p>
+        </div>
+      }
+    </div>
+  </div>
+</div>

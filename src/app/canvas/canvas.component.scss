@@ -1,0 +1,51 @@
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.canvas-wrapper {
+  width: 1080px;
+  height: 1920px;
+  position: relative;
+  overflow: hidden;
+  transform-origin: top left;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+}
+
+.canvas-element {
+  cursor: move;
+  user-select: none;
+
+  &.selected {
+    outline: 3px dashed rgba(100, 180, 255, 0.8);
+    outline-offset: 2px;
+  }
+
+  img {
+    display: block;
+    pointer-events: none;
+  }
+}
+
+.text-content {
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.resize-handle {
+  position: absolute;
+  bottom: -6px;
+  right: -6px;
+  width: 14px;
+  height: 14px;
+  background: #64b4ff;
+  border: 2px solid #fff;
+  border-radius: 2px;
+  cursor: se-resize;
+  z-index: 9999;
+
+  &:hover {
+    background: #3d9df5;
+  }
+}

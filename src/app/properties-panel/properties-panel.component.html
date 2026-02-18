@@ -1,0 +1,157 @@
+<div class="panel">
+  @if (selectedElement(); as el) {
+    <h3>Propriétés</h3>
+
+    <!-- Common properties -->
+    <section class="section">
+      <h4>Position & Taille</h4>
+      <div class="field-row">
+        <div class="field">
+          <label>X</label>
+          <input type="number" [value]="el.x" (change)="onNumberChange('x', $event)" />
+        </div>
+        <div class="field">
+          <label>Y</label>
+          <input type="number" [value]="el.y" (change)="onNumberChange('y', $event)" />
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Largeur</label>
+          <input type="number" [value]="el.width" (change)="onNumberChange('width', $event)" />
+        </div>
+        <div class="field">
+          <label>Hauteur</label>
+          <input type="number" [value]="el.height" (change)="onNumberChange('height', $event)" />
+        </div>
+      </div>
+      <div class="field">
+        <label>Rotation</label>
+        <input type="range" min="-180" max="180" [value]="el.rotation" (input)="onNumberChange('rotation', $event)" />
+        <span class="value">{{ el.rotation }}°</span>
+      </div>
+    </section>
+
+    <!-- Text properties -->
+    @if (textEl; as t) {
+      <section class="section">
+        <h4>Texte</h4>
+        <div class="field">
+          <label>Contenu</label>
+          <textarea rows="3" [ngModel]="t.content" (ngModelChange)="updateProp('content', $event)"></textarea>
+        </div>
+        <div class="field">
+          <label>Police</label>
+          <select [ngModel]="t.fontFamily" (ngModelChange)="updateProp('fontFamily', $event)">
+            @for (font of fonts; track font) {
+              <option [value]="font" [style.fontFamily]="font">{{ font }}</option>
+            }
+          </select>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label>Taille</label>
+            <input type="number" [value]="t.fontSize" min="8" max="300" (change)="onNumberChange('fontSize', $event)" />
+          </div>
+          <div class="field">
+            <label>Poids</label>
+            <select [ngModel]="t.fontWeight" (ngModelChange)="updateProp('fontWeight', $event)">
+              <option value="300">Light</option>
+              <option value="400">Normal</option>
+              <option value="500">Medium</option>
+              <option value="600">Semibold</option>
+              <option value="700">Bold</option>
+              <option value="800">Extra Bold</option>
+              <option value="900">Black</option>
+            </select>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label>Style</label>
+            <select [ngModel]="t.fontStyle" (ngModelChange)="updateProp('fontStyle', $event)">
+              <option value="normal">Normal</option>
+              <option value="italic">Italique</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Alignement</label>
+            <select [ngModel]="t.textAlign" (ngModelChange)="updateProp('textAlign', $event)">
+              <option value="left">Gauche</option>
+              <option value="center">Centre</option>
+              <option value="right">Droite</option>
+            </select>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label>Couleur</label>
+            <input type="color" [ngModel]="t.color" (ngModelChange)="updateProp('color', $event)" />
+          </div>
+          <div class="field">
+            <label>Fond</label>
+            <input type="color" [ngModel]="t.backgroundColor === 'transparent' ? '#000000' : t.backgroundColor" (ngModelChange)="updateProp('backgroundColor', $event)" />
+          </div>
+        </div>
+        <div class="field">
+          <label>
+            <input type="checkbox" [checked]="t.backgroundColor === 'transparent'" (change)="updateProp('backgroundColor', t.backgroundColor === 'transparent' ? '#b388ff80' : 'transparent')" />
+            Fond transparent
+          </label>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label>Padding</label>
+            <input type="number" [value]="t.padding" min="0" max="100" (change)="onNumberChange('padding', $event)" />
+          </div>
+          <div class="field">
+            <label>Radius</label>
+            <input type="number" [value]="t.borderRadius" min="0" max="100" (change)="onNumberChange('borderRadius', $event)" />
+          </div>
+        </div>
+      </section>
+    }
+
+    <!-- Image properties -->
+    @if (imageEl; as img) {
+      <section class="section">
+        <h4>Image</h4>
+        <div class="field">
+          <label>Opacité</label>
+          <input type="range" min="0" max="1" step="0.05" [value]="img.opacity" (input)="updateProp('opacity', +$any($event.target).value)" />
+          <span class="value">{{ img.opacity | number:'1.2-2' }}</span>
+        </div>
+        <div class="field">
+          <label>Ajustement</label>
+          <select [ngModel]="img.objectFit" (ngModelChange)="updateProp('objectFit', $event)">
+            <option value="contain">Contain</option>
+            <option value="cover">Cover</option>
+            <option value="fill">Fill</option>
+          </select>
+        </div>
+        <button class="btn btn-secondary" (click)="changeImageSrc()">Changer l'image</button>
+      </section>
+    }
+
+    <!-- Phone mockup properties -->
+    @if (phoneEl; as phone) {
+      <section class="section">
+        <h4>Téléphone</h4>
+        <button class="btn btn-secondary" (click)="changeScreenshot()">
+          {{ phone.screenshotSrc ? 'Changer le screenshot' : 'Ajouter un screenshot' }}
+        </button>
+      </section>
+    }
+
+    <!-- Actions -->
+    <section class="section actions">
+      <button class="btn btn-secondary" (click)="bringToFront()">Premier plan</button>
+      <button class="btn btn-secondary" (click)="sendToBack()">Arrière plan</button>
+      <button class="btn btn-danger" (click)="deleteElement()">Supprimer</button>
+    </section>
+  } @else {
+    <div class="no-selection">
+      <p>Sélectionnez un élément pour voir ses propriétés</p>
+    </div>
+  }
+</div>

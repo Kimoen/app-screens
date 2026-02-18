@@ -1,0 +1,48 @@
+<div
+  class="canvas-wrapper"
+  #canvasEl
+  [ngStyle]="bgStyle()"
+  (mousedown)="onCanvasClick()"
+>
+  @for (el of elements(); track el.id) {
+    <div
+      class="canvas-element"
+      [class.selected]="el.id === selectedId()"
+      [ngStyle]="getElementStyle(el)"
+      (mousedown)="onElementMouseDown($event, el)"
+    >
+      @switch (el.type) {
+        @case ('text') {
+          <div class="text-content" [ngStyle]="getTextStyle(asText(el))">
+            {{ asText(el).content }}
+          </div>
+        }
+        @case ('image') {
+          <img
+            [src]="asImage(el).src"
+            [style.width.px]="el.width"
+            [style.height.px]="el.height"
+            [style.objectFit]="asImage(el).objectFit"
+            [style.opacity]="asImage(el).opacity"
+            draggable="false"
+          />
+        }
+        @case ('phone-mockup') {
+          <app-phone-mockup
+            [screenshotSrc]="asPhone(el).screenshotSrc"
+            [width]="el.width"
+            [height]="el.height"
+          />
+        }
+      }
+
+      <!-- Resize handle -->
+      @if (el.id === selectedId()) {
+        <div
+          class="resize-handle"
+          (mousedown)="onResizeStart($event, el)"
+        ></div>
+      }
+    </div>
+  }
+</div>

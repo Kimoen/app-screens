@@ -1,0 +1,78 @@
+:host {
+  display: block;
+  pointer-events: none;
+}
+
+.phone-frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.phone-bezel {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background: #1c1c1e;
+  border-radius: 7.5% / 3.5%;
+  border: 2px solid #3a3a3c;
+  box-shadow:
+    0 8px 40px rgba(0, 0, 0, 0.45),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+  overflow: hidden;
+}
+
+// Samsung S25 centered punch-hole camera
+.punch-hole {
+  position: absolute;
+  top: 1%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2%;
+  height: 0.9%;
+  border-radius: 50%;
+  background: #0a0a0a;
+  border: 1.5px solid #2a2a2c;
+  z-index: 3;
+}
+
+// Screen area sized to fit 1080x2340 screenshots perfectly
+.phone-screen {
+  position: absolute;
+  top: 0.9%;
+  left: 1.4%;
+  right: 1.4%;
+  bottom: 0.9%;
+  border-radius: 6.5% / 3%;
+  overflow: hidden;
+  background: #000;
+  z-index: 1;
+}
+
+.screenshot {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  display: block;
+}
+
+.placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #555;
+  font-size: 14px;
+  background: #0a0a0a;
+
+  span {
+    font-size: 32px;
+    margin-bottom: 8px;
+  }
+
+  p {
+    margin: 0;
+  }
+}

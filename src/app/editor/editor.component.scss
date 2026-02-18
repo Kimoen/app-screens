@@ -1,0 +1,39 @@
+.editor-layout {
+  display: flex;
+  height: 100vh;
+  background: #0f0f0f;
+  overflow: hidden;
+}
+
+.sidebar {
+  width: 280px;
+  min-width: 280px;
+  background: #1a1a1a;
+  border-right: 1px solid #2a2a2a;
+  overflow-y: auto;
+
+  &.right-sidebar {
+    border-right: none;
+    border-left: 1px solid #2a2a2a;
+  }
+}
+
+.canvas-area {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
+  padding: 20px;
+  background: #111;
+}
+
+.canvas-container {
+  flex-shrink: 0;
+  position: relative;
+
+  app-canvas {
+    display: block;
+    transform-origin: top left;
+  }
+}

@@ -1,0 +1,22 @@
+<div class="editor-layout">
+  <!-- Left: Toolbar -->
+  <aside class="sidebar left-sidebar">
+    <app-toolbar (exportRequested)="onExport()" />
+  </aside>
+
+  <!-- Center: Canvas -->
+  <main class="canvas-area" #canvasArea>
+    <div
+      class="canvas-container"
+      [style.width.px]="1080 * canvasScale"
+      [style.height.px]="1920 * canvasScale"
+    >
+      <app-canvas [style.transform]="'scale(' + canvasScale + ')'" [displayScale]="canvasScale" />
+    </div>
+  </main>
+
+  <!-- Right: Properties -->
+  <aside class="sidebar right-sidebar">
+    <app-properties-panel />
+  </aside>
+</div>
