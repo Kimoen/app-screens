@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CanvasStateService } from '../services/canvas-state.service';
 import { LAYOUT_TEMPLATES, LayoutTemplate } from '../layouts/layout-templates';
+import { BUILTIN_IMAGES, BuiltinImage } from '../models/builtin-images';
 
 @Component({
   selector: 'app-toolbar',
@@ -15,9 +16,12 @@ export class ToolbarComponent {
   private canvasState = inject(CanvasStateService);
 
   @Output() exportRequested = new EventEmitter<void>();
+  @Output() screenModeChanged = new EventEmitter<void>();
 
   layouts = LAYOUT_TEMPLATES;
+  builtinImages = BUILTIN_IMAGES;
   state = this.canvasState.canvasState;
+  screenMode = this.canvasState.screenMode;
 
   // Background controls
   bgType: 'solid' | 'gradient' = 'gradient';
@@ -70,6 +74,10 @@ export class ToolbarComponent {
     this.canvasState.addPhoneMockup('');
   }
 
+  addBuiltinImage(image: BuiltinImage) {
+    this.canvasState.addImage(image.src, image.defaultWidth, image.defaultHeight);
+  }
+
   applyLayout(layout: LayoutTemplate) {
     this.canvasState.loadLayout(
       layout.createElements(),
@@ -113,6 +121,11 @@ export class ToolbarComponent {
     this.gradStart = '#0f0c29';
     this.gradEnd = '#302b63';
     this.gradAngle = 180;
+  }
+
+  setScreenMode(mode: 1 | 2 | 3) {
+    this.canvasState.setScreenMode(mode);
+    this.screenModeChanged.emit();
   }
 
   exportPng() {

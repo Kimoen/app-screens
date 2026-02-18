@@ -2,6 +2,8 @@
   class="canvas-wrapper"
   #canvasEl
   [ngStyle]="bgStyle()"
+  [style.width.px]="canvasWidth()"
+  [style.height.px]="CANVAS_H"
   (mousedown)="onCanvasClick()"
 >
   @for (el of elements(); track el.id) {
@@ -32,6 +34,12 @@
             [screenshotSrc]="asPhone(el).screenshotSrc"
             [width]="el.width"
             [height]="el.height"
+            [borderEnabled]="asPhone(el).borderEnabled"
+            [borderColor]="asPhone(el).borderColor"
+            [borderWidth]="asPhone(el).borderWidth"
+            [glowEnabled]="asPhone(el).glowEnabled"
+            [glowColor]="asPhone(el).glowColor"
+            [glowSize]="asPhone(el).glowSize"
           />
         }
       }
@@ -44,5 +52,13 @@
         ></div>
       }
     </div>
+  }
+
+  <!-- Split guides -->
+  @if (screenMode() >= 2) {
+    <div class="split-guide" [style.left.px]="SLICE_W"></div>
+  }
+  @if (screenMode() >= 3) {
+    <div class="split-guide" [style.left.px]="SLICE_W * 2"></div>
   }
 </div>

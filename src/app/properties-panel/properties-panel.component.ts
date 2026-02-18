@@ -110,6 +110,17 @@ export class PropertiesPanelComponent {
     if (el) this.canvasState.bringToFront(el.id);
   }
 
+  onScaleSlider(event: Event) {
+    const el = this.selectedElement();
+    if (!el) return;
+    const newWidth = +(event.target as HTMLInputElement).value;
+    const ratio = el.width / el.height;
+    this.canvasState.updateElement(el.id, {
+      width: newWidth,
+      height: Math.round(newWidth / ratio),
+    } as any);
+  }
+
   sendToBack() {
     const el = this.selectedElement();
     if (el) this.canvasState.sendToBack(el.id);

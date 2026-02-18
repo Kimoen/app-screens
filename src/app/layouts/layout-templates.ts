@@ -53,6 +53,12 @@ export const LAYOUT_TEMPLATES: LayoutTemplate[] = [
         rotation: 0,
         zIndex: 1,
         screenshotSrc: '',
+        borderEnabled: false,
+        borderColor: '#3b82f6',
+        borderWidth: 3,
+        glowEnabled: false,
+        glowColor: '#3b82f6',
+        glowSize: 20,
       };
       return [phone, text];
     },
@@ -76,6 +82,12 @@ export const LAYOUT_TEMPLATES: LayoutTemplate[] = [
         rotation: 0,
         zIndex: 1,
         screenshotSrc: '',
+        borderEnabled: false,
+        borderColor: '#3b82f6',
+        borderWidth: 3,
+        glowEnabled: false,
+        glowColor: '#3b82f6',
+        glowSize: 20,
       };
       const text: TextElement = {
         id: generateId(),
@@ -119,6 +131,12 @@ export const LAYOUT_TEMPLATES: LayoutTemplate[] = [
         rotation: 0,
         zIndex: 1,
         screenshotSrc: '',
+        borderEnabled: false,
+        borderColor: '#3b82f6',
+        borderWidth: 3,
+        glowEnabled: false,
+        glowColor: '#3b82f6',
+        glowSize: 20,
       };
       const text: TextElement = {
         id: generateId(),

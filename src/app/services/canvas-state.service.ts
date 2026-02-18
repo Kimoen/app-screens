@@ -20,6 +20,9 @@ export class CanvasStateService {
     const id = this.state().selectedElementId;
     return this.state().elements.find((e) => e.id === id) ?? null;
   });
+  readonly screenMode = computed(() => this.state().screenMode);
+  readonly canvasWidth = computed(() => 1080 * this.state().screenMode);
+
   readonly backgroundStyle = computed(() => {
     const s = this.state();
     if (s.backgroundType === 'solid') {
@@ -29,6 +32,11 @@ export class CanvasStateService {
       background: `linear-gradient(${s.gradientAngle}deg, ${s.gradientStart}, ${s.gradientEnd})`,
     };
   });
+
+  // Screen mode
+  setScreenMode(mode: 1 | 2 | 3) {
+    this.state.update((s) => ({ ...s, screenMode: mode }));
+  }
 
   // Background
   setBackgroundType(type: 'solid' | 'gradient') {
@@ -119,6 +127,12 @@ export class CanvasStateService {
       rotation: 0,
       zIndex: this.state().elements.length + 1,
       screenshotSrc,
+      borderEnabled: false,
+      borderColor: '#3b82f6',
+      borderWidth: 3,
+      glowEnabled: false,
+      glowColor: '#3b82f6',
+      glowSize: 20,
     };
     this.state.update((s) => ({
       ...s,

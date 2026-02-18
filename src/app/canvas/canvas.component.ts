@@ -17,9 +17,11 @@ export class CanvasComponent {
   @ViewChild('canvasEl', { static: true }) canvasEl!: ElementRef<HTMLDivElement>;
   @Input() displayScale = 1;
 
-  readonly CANVAS_W = 1080;
   readonly CANVAS_H = 1920;
+  readonly SLICE_W = 1080;
 
+  canvasWidth = this.canvasState.canvasWidth;
+  screenMode = this.canvasState.screenMode;
   elements = this.canvasState.elements;
   selectedId = this.canvasState.selectedElementId;
   bgStyle = this.canvasState.backgroundStyle;

@@ -30,6 +30,13 @@
         <input type="range" min="-180" max="180" [value]="el.rotation" (input)="onNumberChange('rotation', $event)" />
         <span class="value">{{ el.rotation }}°</span>
       </div>
+      @if (el.type === 'image' || el.type === 'phone-mockup') {
+        <div class="field">
+          <label>Taille</label>
+          <input type="range" min="50" max="1200" [value]="el.width" (input)="onScaleSlider($event)" />
+          <span class="value">{{ el.width }}px</span>
+        </div>
+      }
     </section>
 
     <!-- Text properties -->
@@ -140,6 +147,50 @@
         <button class="btn btn-secondary" (click)="changeScreenshot()">
           {{ phone.screenshotSrc ? 'Changer le screenshot' : 'Ajouter un screenshot' }}
         </button>
+      </section>
+
+      <section class="section">
+        <h4>Bordure</h4>
+        <div class="field">
+          <label>
+            <input type="checkbox" [checked]="phone.borderEnabled" (change)="updateProp('borderEnabled', !phone.borderEnabled)" />
+            Activer la bordure
+          </label>
+        </div>
+        @if (phone.borderEnabled) {
+          <div class="field-row">
+            <div class="field">
+              <label>Couleur</label>
+              <input type="color" [ngModel]="phone.borderColor" (ngModelChange)="updateProp('borderColor', $event)" />
+            </div>
+            <div class="field">
+              <label>Épaisseur</label>
+              <input type="number" [value]="phone.borderWidth" min="1" max="10" (change)="onNumberChange('borderWidth', $event)" />
+            </div>
+          </div>
+        }
+      </section>
+
+      <section class="section">
+        <h4>Glow</h4>
+        <div class="field">
+          <label>
+            <input type="checkbox" [checked]="phone.glowEnabled" (change)="updateProp('glowEnabled', !phone.glowEnabled)" />
+            Activer le glow
+          </label>
+        </div>
+        @if (phone.glowEnabled) {
+          <div class="field-row">
+            <div class="field">
+              <label>Couleur</label>
+              <input type="color" [ngModel]="phone.glowColor" (ngModelChange)="updateProp('glowColor', $event)" />
+            </div>
+            <div class="field">
+              <label>Rayon</label>
+              <input type="number" [value]="phone.glowSize" min="5" max="60" (change)="onNumberChange('glowSize', $event)" />
+            </div>
+          </div>
+        }
       </section>
     }
 

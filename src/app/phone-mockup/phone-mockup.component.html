@@ -1,5 +1,8 @@
 <div class="phone-frame" [style.width.px]="width" [style.height.px]="height">
-  <div class="phone-bezel">
+  @for (ring of glowRings; track $index) {
+    <div [ngStyle]="ring"></div>
+  }
+  <div class="phone-bezel" [ngStyle]="bezelStyle">
     <!-- Punch-hole camera -->
     <div class="punch-hole"></div>
     <!-- Screen content -->

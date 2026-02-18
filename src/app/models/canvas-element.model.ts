@@ -33,6 +33,12 @@ export interface ImageElement extends BaseCanvasElement {
 export interface PhoneMockupElement extends BaseCanvasElement {
   type: 'phone-mockup';
   screenshotSrc: string;
+  borderEnabled: boolean;
+  borderColor: string;
+  borderWidth: number;
+  glowEnabled: boolean;
+  glowColor: string;
+  glowSize: number;
 }
 
 export type CanvasElement = TextElement | ImageElement | PhoneMockupElement;
@@ -40,6 +46,7 @@ export type CanvasElement = TextElement | ImageElement | PhoneMockupElement;
 export interface CanvasState {
   width: number;
   height: number;
+  screenMode: 1 | 2 | 3;
   backgroundType: 'solid' | 'gradient';
   backgroundColor: string;
   gradientStart: string;
@@ -53,6 +60,7 @@ export function createDefaultState(): CanvasState {
   return {
     width: 1080,
     height: 1920,
+    screenMode: 1,
     backgroundType: 'gradient',
     backgroundColor: '#1a1a2e',
     gradientStart: '#0f0c29',
