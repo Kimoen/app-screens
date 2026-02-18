@@ -19,12 +19,14 @@ export class ToolbarComponent {
   private i18n = inject(TranslationService);
 
   @Output() exportRequested = new EventEmitter<void>();
+  @Output() exportAllRequested = new EventEmitter<void>();
   @Output() screenModeChanged = new EventEmitter<void>();
 
   layouts = LAYOUT_TEMPLATES;
   builtinImages = BUILTIN_IMAGES;
   state = this.canvasState.canvasState;
   screenMode = this.canvasState.screenMode;
+  allTabs = this.canvasState.allTabs;
 
   // Background controls
   bgType: 'solid' | 'gradient' = 'gradient';
@@ -147,5 +149,9 @@ export class ToolbarComponent {
 
   exportPng() {
     this.exportRequested.emit();
+  }
+
+  exportAll() {
+    this.exportAllRequested.emit();
   }
 }

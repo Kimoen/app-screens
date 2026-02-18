@@ -21,6 +21,7 @@ export const en: Record<string, string> = {
   'toolbar.layouts': 'Layouts',
   'toolbar.exportSingle': 'Export PNG (1080x1920)',
   'toolbar.exportMultiple': 'Export {count} PNG (1080x1920)',
+  'toolbar.exportAllTabs': 'Export All Tabs ({count})',
   'toolbar.clearAll': 'Clear all',
 
   // Properties panel

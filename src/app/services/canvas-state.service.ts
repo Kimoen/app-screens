@@ -11,9 +11,16 @@ import {
 
 @Injectable({ providedIn: 'root' })
 export class CanvasStateService {
-  private state = signal<CanvasState>(createDefaultState());
+  private tabs = signal<CanvasState[]>([createDefaultState()]);
+  private activeTabIndex = signal<number>(0);
 
-  readonly canvasState = this.state.asReadonly();
+  readonly activeTabIdx = this.activeTabIndex.asReadonly();
+  readonly allTabs = this.tabs.asReadonly();
+
+  // The "current" state is now computed from the active tab
+  readonly state = computed(() => this.tabs()[this.activeTabIndex()]);
+
+  readonly canvasState = this.state; // Alias for compatibility if needed, but 'state' is now a computed signal
   readonly elements = computed(() => this.state().elements);
   readonly selectedElementId = computed(() => this.state().selectedElementId);
   readonly selectedElement = computed(() => {
@@ -33,31 +40,67 @@ export class CanvasStateService {
     };
   });
 
+  // --- Tab Management ---
+
+  addTab() {
+    this.tabs.update(tabs => [...tabs, createDefaultState()]);
+    // Switch to the new tab
+    this.activeTabIndex.set(this.tabs().length - 1);
+  }
+
+  removeTab(index: number) {
+    if (this.tabs().length <= 1) return; // Don't remove the last tab
+
+    this.tabs.update(tabs => tabs.filter((_, i) => i !== index));
+
+    // Adjust active index if needed
+    if (this.activeTabIndex() >= index) {
+      this.activeTabIndex.update(i => Math.max(0, i - 1));
+    }
+  }
+
+  setActiveTab(index: number) {
+    if (index >= 0 && index < this.tabs().length) {
+      this.activeTabIndex.set(index);
+    }
+  }
+
+  // --- State Updates (Always target active tab) ---
+
+  private updateActiveState(updater: (s: CanvasState) => CanvasState) {
+    this.tabs.update(tabs => {
+      const idx = this.activeTabIndex();
+      const newTabs = [...tabs];
+      newTabs[idx] = updater(newTabs[idx]);
+      return newTabs;
+    });
+  }
+
   // Screen mode
   setScreenMode(mode: 1 | 2 | 3) {
-    this.state.update((s) => ({ ...s, screenMode: mode }));
+    this.updateActiveState((s) => ({ ...s, screenMode: mode }));
   }
 
   // Background
   setBackgroundType(type: 'solid' | 'gradient') {
-    this.state.update((s) => ({ ...s, backgroundType: type }));
+    this.updateActiveState((s) => ({ ...s, backgroundType: type }));
   }
   setBackgroundColor(color: string) {
-    this.state.update((s) => ({ ...s, backgroundColor: color }));
+    this.updateActiveState((s) => ({ ...s, backgroundColor: color }));
   }
   setGradientStart(color: string) {
-    this.state.update((s) => ({ ...s, gradientStart: color }));
+    this.updateActiveState((s) => ({ ...s, gradientStart: color }));
   }
   setGradientEnd(color: string) {
-    this.state.update((s) => ({ ...s, gradientEnd: color }));
+    this.updateActiveState((s) => ({ ...s, gradientEnd: color }));
   }
   setGradientAngle(angle: number) {
-    this.state.update((s) => ({ ...s, gradientAngle: angle }));
+    this.updateActiveState((s) => ({ ...s, gradientAngle: angle }));
   }
 
   // Selection
   selectElement(id: string | null) {
-    this.state.update((s) => ({ ...s, selectedElementId: id }));
+    this.updateActiveState((s) => ({ ...s, selectedElementId: id }));
   }
 
   // Add elements
@@ -82,7 +125,7 @@ export class CanvasStateService {
       borderRadius: 0,
       textAlign: 'center',
     };
-    this.state.update((s) => ({
+    this.updateActiveState((s) => ({
       ...s,
       elements: [...s.elements, el],
       selectedElementId: el.id,
@@ -108,7 +151,7 @@ export class CanvasStateService {
       objectFit: 'contain',
       opacity: 1,
     };
-    this.state.update((s) => ({
+    this.updateActiveState((s) => ({
       ...s,
       elements: [...s.elements, el],
       selectedElementId: el.id,
@@ -136,7 +179,7 @@ export class CanvasStateService {
       frameType: 'original',
       frameColor: '#1c1c1e',
     };
-    this.state.update((s) => ({
+    this.updateActiveState((s) => ({
       ...s,
       elements: [...s.elements, el],
       selectedElementId: el.id,
@@ -146,7 +189,7 @@ export class CanvasStateService {
 
   // Update element
   updateElement(id: string, changes: Partial<CanvasElement>) {
-    this.state.update((s) => ({
+    this.updateActiveState((s) => ({
       ...s,
       elements: s.elements.map((el) =>
         el.id === id ? ({ ...el, ...changes } as CanvasElement) : el
@@ -166,7 +209,7 @@ export class CanvasStateService {
 
   // Delete element
   deleteElement(id: string) {
-    this.state.update((s) => ({
+    this.updateActiveState((s) => ({
       ...s,
       elements: s.elements.filter((el) => el.id !== id),
       selectedElementId: s.selectedElementId === id ? null : s.selectedElementId,
@@ -186,7 +229,7 @@ export class CanvasStateService {
 
   // Load layout
   loadLayout(elements: CanvasElement[], bgType: 'solid' | 'gradient', bgColor: string, gradStart: string, gradEnd: string, gradAngle: number) {
-    this.state.update((s) => ({
+    this.updateActiveState((s) => ({
       ...s,
       elements,
       backgroundType: bgType,
@@ -199,6 +242,6 @@ export class CanvasStateService {
   }
 
   clearAll() {
-    this.state.set(createDefaultState());
+    this.updateActiveState(() => createDefaultState());
   }
 }

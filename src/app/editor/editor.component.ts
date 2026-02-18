@@ -23,8 +23,25 @@ export class EditorComponent implements AfterViewInit {
   canvasScale = 0.35;
   canvasWidth = this.canvasState.canvasWidth;
 
+  tabs = this.canvasState.allTabs;
+  activeTabIdx = this.canvasState.activeTabIdx;
+
   ngAfterViewInit() {
     setTimeout(() => this.computeScale(), 0);
+  }
+
+  onAddTab() {
+    this.canvasState.addTab();
+    // Scroll to the new tab? Or just let angular handle it.
+  }
+
+  onRemoveTab(index: number, event: Event) {
+    event.stopPropagation(); // Prevent selecting the tab when closing
+    this.canvasState.removeTab(index);
+  }
+
+  onSelectTab(index: number) {
+    this.canvasState.setActiveTab(index);
   }
 
   @HostListener('window:resize')
@@ -47,5 +64,28 @@ export class EditorComponent implements AfterViewInit {
     const width = this.canvasWidth();
     const screenMode = this.canvasState.screenMode();
     await this.exportService.exportAsPng(canvasEl, width, 1920, screenMode);
+  }
+
+  async onExportAll() {
+    const originalIndex = this.activeTabIdx();
+    const tabsCount = this.tabs().length;
+
+    for (let i = 0; i < tabsCount; i++) {
+      // 1. Select the tab
+      this.onSelectTab(i);
+
+      // 2. Wait for Angular to update the view (canvas content)
+      // A small delay allows the signal to propagate and the view to re-render
+      await new Promise(resolve => setTimeout(resolve, 300));
+
+      // 3. Export
+      await this.onExport();
+
+      // 4. Cool down slightly to prevent browser freezing
+      await new Promise(resolve => setTimeout(resolve, 200));
+    }
+
+    // Restore original tab
+    this.onSelectTab(originalIndex);
   }
 }

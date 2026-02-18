@@ -21,19 +21,123 @@
 .canvas-area {
   flex: 1;
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: hidden;
+  background: #111;
+  position: relative;
+}
+
+.tabs-bar {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  background: #1a1a1a;
+  padding: 8px 8px 0;
+  width: 100%;
+  border-bottom: 1px solid #2a2a2a;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  overflow-x: auto;
+
+  /* Scrollbar styling for tabs */
+  &::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 2px;
+  }
+}
+
+.tab-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: #252525;
+  color: #999;
+  border-radius: 6px 6px 0 0;
+  cursor: pointer;
+  font-size: 13px;
+  user-select: none;
+  transition: all 0.2s;
+  border: 1px solid transparent;
+  border-bottom: none;
+  min-width: 100px;
+  justify-content: space-between;
+
+  &:hover {
+    background: #2a2a2a;
+    color: #ccc;
+  }
+
+  &.active {
+    background: #111;
+    color: #fff;
+    border-color: #2a2a2a;
+    position: relative;
+    top: 1px;
+    z-index: 10;
+  }
+}
+
+.close-tab-btn {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  padding: 2px;
+  font-size: 14px;
+  line-height: 1;
+  opacity: 0.6;
+  border-radius: 50%;
+  display: flex;
   align-items: center;
   justify-content: center;
+
+  &:hover {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.1);
+    color: #ff5252;
+  }
+}
+
+.add-tab-btn {
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 4px 12px;
+  border-radius: 4px;
+  margin-left: 4px;
+  line-height: 1;
+
+  &:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.05);
+  }
+}
+
+.canvas-viewport {
+  flex: 1;
+  width: 100%;
+  display: flex;
   overflow: auto;
-  padding: 20px;
-  background: #111;
+  padding: 40px;
 }
 
 .canvas-container {
   flex-shrink: 0;
   position: relative;
+  margin: auto; // Centers the canvas both horizontally and vertically when it fits
 
   app-canvas {
     display: block;
     transform-origin: top left;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
   }
 }
