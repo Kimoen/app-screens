@@ -4,16 +4,19 @@ import { FormsModule } from '@angular/forms';
 import { CanvasStateService } from '../services/canvas-state.service';
 import { LAYOUT_TEMPLATES, LayoutTemplate } from '../layouts/layout-templates';
 import { BUILTIN_IMAGES, BuiltinImage } from '../models/builtin-images';
+import { TranslationService } from '../i18n/translation.service';
+import { TranslatePipe } from '../i18n/translate.pipe';
 
 @Component({
   selector: 'app-toolbar',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TranslatePipe],
   templateUrl: './toolbar.component.html',
   styleUrl: './toolbar.component.scss',
 })
 export class ToolbarComponent {
   private canvasState = inject(CanvasStateService);
+  private i18n = inject(TranslationService);
 
   @Output() exportRequested = new EventEmitter<void>();
   @Output() screenModeChanged = new EventEmitter<void>();
@@ -30,8 +33,12 @@ export class ToolbarComponent {
   gradEnd = '#302b63';
   gradAngle = 180;
 
+  toggleLang() {
+    this.i18n.toggleLang();
+  }
+
   addText() {
-    this.canvasState.addText();
+    this.canvasState.addText(this.i18n.t('defaults.textContent'));
   }
 
   addImage() {
@@ -79,8 +86,9 @@ export class ToolbarComponent {
   }
 
   applyLayout(layout: LayoutTemplate) {
+    const t = (key: string) => this.i18n.t(key);
     this.canvasState.loadLayout(
-      layout.createElements(),
+      layout.createElements(t),
       layout.bgType,
       layout.bgColor,
       layout.gradStart,

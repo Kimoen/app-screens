@@ -1,35 +1,38 @@
 <div class="toolbar">
-  <h2>App Screens</h2>
+  <div class="toolbar-header">
+    <h2>App Screens</h2>
+    <button class="btn btn-lang" (click)="toggleLang()">{{ 'lang.switch' | translate }}</button>
+  </div>
 
   <!-- Screen mode -->
   <section class="toolbar-section">
-    <h3>Mode écran</h3>
+    <h3>{{ 'toolbar.screenMode' | translate }}</h3>
     <div class="btn-group screen-mode-group">
-      <button class="btn btn-mode" [class.active]="screenMode() === 1" (click)="setScreenMode(1)">Simple</button>
-      <button class="btn btn-mode" [class.active]="screenMode() === 2" (click)="setScreenMode(2)">Double</button>
-      <button class="btn btn-mode" [class.active]="screenMode() === 3" (click)="setScreenMode(3)">Triple</button>
+      <button class="btn btn-mode" [class.active]="screenMode() === 1" (click)="setScreenMode(1)">{{ 'toolbar.single' | translate }}</button>
+      <button class="btn btn-mode" [class.active]="screenMode() === 2" (click)="setScreenMode(2)">{{ 'toolbar.double' | translate }}</button>
+      <button class="btn btn-mode" [class.active]="screenMode() === 3" (click)="setScreenMode(3)">{{ 'toolbar.triple' | translate }}</button>
     </div>
   </section>
 
   <!-- Add elements -->
   <section class="toolbar-section">
-    <h3>Ajouter</h3>
+    <h3>{{ 'toolbar.add' | translate }}</h3>
     <div class="btn-group">
-      <button class="btn btn-primary" (click)="addText()">+ Texte</button>
-      <button class="btn btn-primary" (click)="addImage()">+ Image</button>
-      <button class="btn btn-primary" (click)="addPhoneMockup()">+ Téléphone (avec screenshot)</button>
-      <button class="btn btn-secondary" (click)="addEmptyPhoneMockup()">+ Téléphone vide</button>
+      <button class="btn btn-primary" (click)="addText()">{{ 'toolbar.addText' | translate }}</button>
+      <button class="btn btn-primary" (click)="addImage()">{{ 'toolbar.addImage' | translate }}</button>
+      <button class="btn btn-primary" (click)="addPhoneMockup()">{{ 'toolbar.addPhone' | translate }}</button>
+      <button class="btn btn-secondary" (click)="addEmptyPhoneMockup()">{{ 'toolbar.addEmptyPhone' | translate }}</button>
     </div>
   </section>
 
   <!-- Built-in images -->
   <section class="toolbar-section">
-    <h3>Images intégrées</h3>
+    <h3>{{ 'toolbar.builtinImages' | translate }}</h3>
     <div class="builtin-images">
-      @for (img of builtinImages; track img.name) {
+      @for (img of builtinImages; track img.nameKey) {
         <button class="btn btn-builtin-image" (click)="addBuiltinImage(img)">
-          <img [src]="img.src" [alt]="img.name" class="builtin-thumb" />
-          <span>{{ img.name }}</span>
+          <img [src]="img.src" [alt]="img.nameKey | translate" class="builtin-thumb" />
+          <span>{{ img.nameKey | translate }}</span>
         </button>
       }
     </div>
@@ -37,30 +40,30 @@
 
   <!-- Background -->
   <section class="toolbar-section">
-    <h3>Fond</h3>
+    <h3>{{ 'toolbar.background' | translate }}</h3>
     <div class="field">
-      <label>Type</label>
+      <label>{{ 'toolbar.bgType' | translate }}</label>
       <select [(ngModel)]="bgType" (ngModelChange)="onBgTypeChange()">
-        <option value="solid">Couleur unie</option>
-        <option value="gradient">Dégradé</option>
+        <option value="solid">{{ 'toolbar.bgSolid' | translate }}</option>
+        <option value="gradient">{{ 'toolbar.bgGradient' | translate }}</option>
       </select>
     </div>
     @if (bgType === 'solid') {
       <div class="field">
-        <label>Couleur</label>
+        <label>{{ 'toolbar.bgColor' | translate }}</label>
         <input type="color" [(ngModel)]="bgColor" (ngModelChange)="onBgColorChange()" />
       </div>
     } @else {
       <div class="field">
-        <label>Début</label>
+        <label>{{ 'toolbar.gradStart' | translate }}</label>
         <input type="color" [(ngModel)]="gradStart" (ngModelChange)="onGradStartChange()" />
       </div>
       <div class="field">
-        <label>Fin</label>
+        <label>{{ 'toolbar.gradEnd' | translate }}</label>
         <input type="color" [(ngModel)]="gradEnd" (ngModelChange)="onGradEndChange()" />
       </div>
       <div class="field">
-        <label>Angle ({{ gradAngle }}°)</label>
+        <label>{{ 'toolbar.gradAngle' | translate : { angle: gradAngle } }}</label>
         <input type="range" min="0" max="360" [(ngModel)]="gradAngle" (ngModelChange)="onGradAngleChange()" />
       </div>
     }
@@ -68,12 +71,12 @@
 
   <!-- Layouts -->
   <section class="toolbar-section">
-    <h3>Layouts</h3>
+    <h3>{{ 'toolbar.layouts' | translate }}</h3>
     <div class="layout-list">
-      @for (layout of layouts; track layout.name) {
+      @for (layout of layouts; track layout.nameKey) {
         <button class="btn btn-layout" (click)="applyLayout(layout)">
-          <strong>{{ layout.name }}</strong>
-          <small>{{ layout.description }}</small>
+          <strong>{{ layout.nameKey | translate }}</strong>
+          <small>{{ layout.descriptionKey | translate }}</small>
         </button>
       }
     </div>
@@ -83,11 +86,11 @@
   <section class="toolbar-section">
     <div class="btn-group">
       @if (screenMode() === 1) {
-        <button class="btn btn-export" (click)="exportPng()">Exporter PNG (1080x1920)</button>
+        <button class="btn btn-export" (click)="exportPng()">{{ 'toolbar.exportSingle' | translate }}</button>
       } @else {
-        <button class="btn btn-export" (click)="exportPng()">Exporter {{ screenMode() }} PNG (1080x1920)</button>
+        <button class="btn btn-export" (click)="exportPng()">{{ 'toolbar.exportMultiple' | translate : { count: screenMode() } }}</button>
       }
-      <button class="btn btn-danger" (click)="clearAll()">Tout effacer</button>
+      <button class="btn btn-danger" (click)="clearAll()">{{ 'toolbar.clearAll' | translate }}</button>
     </div>
   </section>
 </div>

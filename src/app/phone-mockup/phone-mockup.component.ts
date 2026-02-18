@@ -1,10 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { NgStyle } from '@angular/common';
+import { TranslatePipe } from '../i18n/translate.pipe';
 
 @Component({
   selector: 'app-phone-mockup',
   standalone: true,
-  imports: [NgStyle],
+  imports: [NgStyle, TranslatePipe],
   templateUrl: './phone-mockup.component.html',
   styleUrl: './phone-mockup.component.scss',
 })

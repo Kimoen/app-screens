@@ -61,7 +61,7 @@ export class CanvasStateService {
   }
 
   // Add elements
-  addText(): TextElement {
+  addText(content?: string): TextElement {
     const el: TextElement = {
       id: generateId(),
       type: 'text',
@@ -71,7 +71,7 @@ export class CanvasStateService {
       height: 200,
       rotation: 0,
       zIndex: this.state().elements.length + 1,
-      content: 'Votre texte ici',
+      content: content ?? 'Your text here',
       fontFamily: 'Poppins',
       fontSize: 72,
       fontWeight: '800',

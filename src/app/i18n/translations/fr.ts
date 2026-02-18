@@ -1,0 +1,92 @@
+export const fr: Record<string, string> = {
+  // Toolbar
+  'toolbar.screenMode': 'Mode écran',
+  'toolbar.single': 'Simple',
+  'toolbar.double': 'Double',
+  'toolbar.triple': 'Triple',
+  'toolbar.add': 'Ajouter',
+  'toolbar.addText': '+ Texte',
+  'toolbar.addImage': '+ Image',
+  'toolbar.addPhone': '+ Téléphone (avec screenshot)',
+  'toolbar.addEmptyPhone': '+ Téléphone vide',
+  'toolbar.builtinImages': 'Images intégrées',
+  'toolbar.background': 'Fond',
+  'toolbar.bgType': 'Type',
+  'toolbar.bgSolid': 'Couleur unie',
+  'toolbar.bgGradient': 'Dégradé',
+  'toolbar.bgColor': 'Couleur',
+  'toolbar.gradStart': 'Début',
+  'toolbar.gradEnd': 'Fin',
+  'toolbar.gradAngle': 'Angle ({angle}°)',
+  'toolbar.layouts': 'Layouts',
+  'toolbar.exportSingle': 'Exporter PNG (1080x1920)',
+  'toolbar.exportMultiple': 'Exporter {count} PNG (1080x1920)',
+  'toolbar.clearAll': 'Tout effacer',
+
+  // Properties panel
+  'props.title': 'Propriétés',
+  'props.positionSize': 'Position & Taille',
+  'props.width': 'Largeur',
+  'props.height': 'Hauteur',
+  'props.rotation': 'Rotation',
+  'props.size': 'Taille',
+  'props.text': 'Texte',
+  'props.content': 'Contenu',
+  'props.font': 'Police',
+  'props.fontSize': 'Taille',
+  'props.fontWeight': 'Poids',
+  'props.fontStyle': 'Style',
+  'props.fontStyleItalic': 'Italique',
+  'props.alignment': 'Alignement',
+  'props.alignLeft': 'Gauche',
+  'props.alignCenter': 'Centre',
+  'props.alignRight': 'Droite',
+  'props.color': 'Couleur',
+  'props.background': 'Fond',
+  'props.transparentBg': 'Fond transparent',
+  'props.image': 'Image',
+  'props.opacity': 'Opacité',
+  'props.objectFit': 'Ajustement',
+  'props.changeImage': "Changer l'image",
+  'props.phone': 'Téléphone',
+  'props.changeScreenshot': 'Changer le screenshot',
+  'props.addScreenshot': 'Ajouter un screenshot',
+  'props.border': 'Bordure',
+  'props.enableBorder': 'Activer la bordure',
+  'props.borderColor': 'Couleur',
+  'props.borderThickness': 'Épaisseur',
+  'props.glow': 'Glow',
+  'props.enableGlow': 'Activer le glow',
+  'props.glowColor': 'Couleur',
+  'props.glowRadius': 'Rayon',
+  'props.bringToFront': 'Premier plan',
+  'props.sendToBack': 'Arrière plan',
+  'props.delete': 'Supprimer',
+  'props.noSelection': 'Sélectionnez un élément pour voir ses propriétés',
+
+  // Phone mockup
+  'phone.addScreenshot': 'Ajoutez un screenshot',
+
+  // Layouts
+  'layout.topTextPhone.name': 'Texte en haut + Téléphone',
+  'layout.topTextPhone.desc': 'Titre accrocheur en haut, téléphone centré en bas',
+  'layout.topTextPhone.content': 'Votre titre\naccrocheur ici',
+  'layout.fullPhoneOverlay.name': 'Téléphone plein + Texte overlay',
+  'layout.fullPhoneOverlay.desc': 'Téléphone large avec texte superposé en haut',
+  'layout.fullPhoneOverlay.content': 'Texte superposé',
+  'layout.offsetPhoneSide.name': 'Téléphone décalé + Texte latéral',
+  'layout.offsetPhoneSide.desc': 'Téléphone à droite, texte à gauche verticalement centré',
+  'layout.offsetPhoneSide.content': 'Titre\ncôté\ngauche',
+
+  // Default text
+  'defaults.textContent': 'Votre texte ici',
+
+  // Built-in images
+  'builtin.handTouch': 'Main (touch)',
+
+  // Page
+  'page.title': 'App Screens - Générateur de screenshots',
+
+  // Language switcher
+  'lang.switch': 'EN',
+};

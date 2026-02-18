@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CanvasStateService } from '../services/canvas-state.service';
 import { TextElement, ImageElement, PhoneMockupElement } from '../models/canvas-element.model';
+import { TranslatePipe } from '../i18n/translate.pipe';
 
 const GOOGLE_FONTS = [
   'Poppins', 'Roboto', 'Open Sans', 'Montserrat', 'Lato', 'Inter',
@@ -14,7 +15,7 @@ const GOOGLE_FONTS = [
 @Component({
   selector: 'app-properties-panel',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TranslatePipe],
   templateUrl: './properties-panel.component.html',
   styleUrl: './properties-panel.component.scss',
 })

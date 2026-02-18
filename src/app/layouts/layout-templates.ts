@@ -1,28 +1,28 @@
 import { CanvasElement, TextElement, PhoneMockupElement, generateId } from '../models/canvas-element.model';
 
 export interface LayoutTemplate {
-  name: string;
-  description: string;
+  nameKey: string;
+  descriptionKey: string;
   bgType: 'solid' | 'gradient';
   bgColor: string;
   gradStart: string;
   gradEnd: string;
   gradAngle: number;
-  createElements: () => CanvasElement[];
+  createElements: (t: (key: string) => string) => CanvasElement[];
 }
 
 // S25 phone ratio: width * 2.15 ≈ height (1080x2340 screen + thin bezels)
 
 export const LAYOUT_TEMPLATES: LayoutTemplate[] = [
   {
-    name: 'Texte en haut + Téléphone',
-    description: 'Titre accrocheur en haut, téléphone centré en bas',
+    nameKey: 'layout.topTextPhone.name',
+    descriptionKey: 'layout.topTextPhone.desc',
     bgType: 'gradient',
     bgColor: '#1a1a2e',
     gradStart: '#0f0c29',
     gradEnd: '#302b63',
     gradAngle: 180,
-    createElements: () => {
+    createElements: (t) => {
       const text: TextElement = {
         id: generateId(),
         type: 'text',
@@ -32,7 +32,7 @@ export const LAYOUT_TEMPLATES: LayoutTemplate[] = [
         height: 300,
         rotation: 0,
         zIndex: 2,
-        content: 'Votre titre\naccrocheur ici',
+        content: t('layout.topTextPhone.content'),
         fontFamily: 'Poppins',
         fontSize: 84,
         fontWeight: '800',
@@ -64,14 +64,14 @@ export const LAYOUT_TEMPLATES: LayoutTemplate[] = [
     },
   },
   {
-    name: 'Téléphone plein + Texte overlay',
-    description: 'Téléphone large avec texte superposé en haut',
+    nameKey: 'layout.fullPhoneOverlay.name',
+    descriptionKey: 'layout.fullPhoneOverlay.desc',
     bgType: 'gradient',
     bgColor: '#1a1a2e',
     gradStart: '#141e30',
     gradEnd: '#243b55',
     gradAngle: 135,
-    createElements: () => {
+    createElements: (t) => {
       const phone: PhoneMockupElement = {
         id: generateId(),
         type: 'phone-mockup',
@@ -98,7 +98,7 @@ export const LAYOUT_TEMPLATES: LayoutTemplate[] = [
         height: 250,
         rotation: 0,
         zIndex: 2,
-        content: 'Texte superposé',
+        content: t('layout.fullPhoneOverlay.content'),
         fontFamily: 'Poppins',
         fontSize: 80,
         fontWeight: '700',
@@ -113,14 +113,14 @@ export const LAYOUT_TEMPLATES: LayoutTemplate[] = [
     },
   },
   {
-    name: 'Téléphone décalé + Texte latéral',
-    description: 'Téléphone à droite, texte à gauche verticalement centré',
+    nameKey: 'layout.offsetPhoneSide.name',
+    descriptionKey: 'layout.offsetPhoneSide.desc',
     bgType: 'gradient',
     bgColor: '#1a1a2e',
     gradStart: '#1f1c2c',
     gradEnd: '#928dab',
     gradAngle: 160,
-    createElements: () => {
+    createElements: (t) => {
       const phone: PhoneMockupElement = {
         id: generateId(),
         type: 'phone-mockup',
@@ -147,7 +147,7 @@ export const LAYOUT_TEMPLATES: LayoutTemplate[] = [
         height: 350,
         rotation: 0,
         zIndex: 2,
-        content: 'Titre\ncôté\ngauche',
+        content: t('layout.offsetPhoneSide.content'),
         fontFamily: 'Poppins',
         fontSize: 76,
         fontWeight: '800',

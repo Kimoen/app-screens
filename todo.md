@@ -1,0 +1,1 @@
+ajoute des drapeaux pour les langues

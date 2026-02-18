@@ -1,0 +1,92 @@
+export const en: Record<string, string> = {
+  // Toolbar
+  'toolbar.screenMode': 'Screen mode',
+  'toolbar.single': 'Single',
+  'toolbar.double': 'Double',
+  'toolbar.triple': 'Triple',
+  'toolbar.add': 'Add',
+  'toolbar.addText': '+ Text',
+  'toolbar.addImage': '+ Image',
+  'toolbar.addPhone': '+ Phone (with screenshot)',
+  'toolbar.addEmptyPhone': '+ Empty phone',
+  'toolbar.builtinImages': 'Built-in images',
+  'toolbar.background': 'Background',
+  'toolbar.bgType': 'Type',
+  'toolbar.bgSolid': 'Solid color',
+  'toolbar.bgGradient': 'Gradient',
+  'toolbar.bgColor': 'Color',
+  'toolbar.gradStart': 'Start',
+  'toolbar.gradEnd': 'End',
+  'toolbar.gradAngle': 'Angle ({angle}°)',
+  'toolbar.layouts': 'Layouts',
+  'toolbar.exportSingle': 'Export PNG (1080x1920)',
+  'toolbar.exportMultiple': 'Export {count} PNG (1080x1920)',
+  'toolbar.clearAll': 'Clear all',
+
+  // Properties panel
+  'props.title': 'Properties',
+  'props.positionSize': 'Position & Size',
+  'props.width': 'Width',
+  'props.height': 'Height',
+  'props.rotation': 'Rotation',
+  'props.size': 'Size',
+  'props.text': 'Text',
+  'props.content': 'Content',
+  'props.font': 'Font',
+  'props.fontSize': 'Size',
+  'props.fontWeight': 'Weight',
+  'props.fontStyle': 'Style',
+  'props.fontStyleItalic': 'Italic',
+  'props.alignment': 'Alignment',
+  'props.alignLeft': 'Left',
+  'props.alignCenter': 'Center',
+  'props.alignRight': 'Right',
+  'props.color': 'Color',
+  'props.background': 'Background',
+  'props.transparentBg': 'Transparent background',
+  'props.image': 'Image',
+  'props.opacity': 'Opacity',
+  'props.objectFit': 'Fit',
+  'props.changeImage': 'Change image',
+  'props.phone': 'Phone',
+  'props.changeScreenshot': 'Change screenshot',
+  'props.addScreenshot': 'Add screenshot',
+  'props.border': 'Border',
+  'props.enableBorder': 'Enable border',
+  'props.borderColor': 'Color',
+  'props.borderThickness': 'Thickness',
+  'props.glow': 'Glow',
+  'props.enableGlow': 'Enable glow',
+  'props.glowColor': 'Color',
+  'props.glowRadius': 'Radius',
+  'props.bringToFront': 'Bring to front',
+  'props.sendToBack': 'Send to back',
+  'props.delete': 'Delete',
+  'props.noSelection': 'Select an element to see its properties',
+
+  // Phone mockup
+  'phone.addScreenshot': 'Add a screenshot',
+
+  // Layouts
+  'layout.topTextPhone.name': 'Top text + Phone',
+  'layout.topTextPhone.desc': 'Catchy title on top, phone centered below',
+  'layout.topTextPhone.content': 'Your catchy\ntitle here',
+  'layout.fullPhoneOverlay.name': 'Full phone + Text overlay',
+  'layout.fullPhoneOverlay.desc': 'Large phone with text overlaid on top',
+  'layout.fullPhoneOverlay.content': 'Overlay text',
+  'layout.offsetPhoneSide.name': 'Offset phone + Side text',
+  'layout.offsetPhoneSide.desc': 'Phone on right, text vertically centered on left',
+  'layout.offsetPhoneSide.content': 'Title\non the\nleft',
+
+  // Default text
+  'defaults.textContent': 'Your text here',
+
+  // Built-in images
+  'builtin.handTouch': 'Hand (touch)',
+
+  // Page
+  'page.title': 'App Screens - Screenshot generator',
+
+  // Language switcher
+  'lang.switch': 'FR',
+};
