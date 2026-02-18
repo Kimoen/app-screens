@@ -4,42 +4,7 @@
   overflow-y: auto;
   color: #e0e0e0;
 
-  .toolbar-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 0 0 20px;
-    border-bottom: 1px solid #333;
-    padding-bottom: 12px;
 
-    h2 {
-      margin: 0;
-      font-size: 20px;
-      color: #fff;
-    }
-  }
-
-  .lang-selector {
-    select {
-      background: #374151;
-      color: #e0e0e0;
-      font-size: 13px;
-      padding: 6px 10px;
-      border-radius: 4px;
-      border: 1px solid #555;
-      cursor: pointer;
-      outline: none;
-
-      &:hover {
-        background: #4b5563;
-      }
-
-      option {
-        background: #1f2937;
-        color: #fff;
-      }
-    }
-  }
 }
 
 .toolbar-section {

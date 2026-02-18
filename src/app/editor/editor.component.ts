@@ -3,13 +3,14 @@ import { CommonModule } from '@angular/common';
 import { CanvasComponent } from '../canvas/canvas.component';
 import { ToolbarComponent } from '../toolbar/toolbar.component';
 import { PropertiesPanelComponent } from '../properties-panel/properties-panel.component';
+import { HeaderComponent } from '../header/header.component';
 import { ExportService } from '../services/export.service';
 import { CanvasStateService } from '../services/canvas-state.service';
 
 @Component({
   selector: 'app-editor',
   standalone: true,
-  imports: [CommonModule, CanvasComponent, ToolbarComponent, PropertiesPanelComponent],
+  imports: [CommonModule, CanvasComponent, ToolbarComponent, PropertiesPanelComponent, HeaderComponent],
   templateUrl: './editor.component.html',
   styleUrl: './editor.component.scss',
 })

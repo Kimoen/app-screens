@@ -92,7 +92,7 @@ export const en: Record<string, string> = {
   'builtin.handTouch': 'Hand (touch)',
 
   // Page
-  'page.title': 'App Screens - Screenshot generator',
+  'page.title': 'App Screen Studio',
 
   // Language switcher
   'lang.switch': 'FR',

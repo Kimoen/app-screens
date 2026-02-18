@@ -1,14 +1,5 @@
 <div class="toolbar">
-  <div class="toolbar-header">
-    <h2>App Screens</h2>
-    <div class="lang-selector">
-      <select [ngModel]="currentLang" (ngModelChange)="setLang($event)">
-        @for (lang of languages; track lang.code) {
-        <option [value]="lang.code">{{ lang.flag }} {{ lang.label }}</option>
-        }
-      </select>
-    </div>
-  </div>
+
 
   <!-- Screen mode -->
   <section class="toolbar-section">

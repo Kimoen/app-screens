@@ -35,19 +35,6 @@ export class ToolbarComponent {
   gradEnd = '#302b63';
   gradAngle = 180;
 
-  languages = [
-    { code: 'fr', label: 'Français', flag: '🇫🇷' },
-    { code: 'en', label: 'English', flag: '🇬🇧' },
-  ];
-
-  setLang(lang: string) {
-    this.i18n.setLang(lang as any);
-  }
-
-  get currentLang() {
-    return this.i18n.lang();
-  }
-
   addText() {
     this.canvasState.addText(this.i18n.t('defaults.textContent'));
   }

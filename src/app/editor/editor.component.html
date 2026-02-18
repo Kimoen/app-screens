@@ -1,36 +1,39 @@
-<div class="editor-layout">
-  <!-- Left: Toolbar -->
-  <aside class="sidebar left-sidebar">
-    <app-toolbar (exportRequested)="onExport()" (exportAllRequested)="onExportAll()"
-      (screenModeChanged)="computeScale()" />
-  </aside>
+<div class="app-container">
+  <app-header />
+  <div class="editor-layout">
+    <!-- Left: Toolbar -->
+    <aside class="sidebar left-sidebar">
+      <app-toolbar (exportRequested)="onExport()" (exportAllRequested)="onExportAll()"
+        (screenModeChanged)="computeScale()" />
+    </aside>
 
-  <!-- Center: Canvas -->
-  <!-- Center: Canvas -->
-  <main class="canvas-area">
-    <div class="tabs-bar">
-      @for (tab of tabs(); track $index; let i = $index) {
-      <div class="tab-item" [class.active]="i === activeTabIdx()" (click)="onSelectTab(i)">
-        <span>Screen {{ i + 1 }}</span>
-        @if (tabs().length > 1) {
-        <button class="close-tab-btn" (click)="onRemoveTab(i, $event)">×</button>
+    <!-- Center: Canvas -->
+    <!-- Center: Canvas -->
+    <main class="canvas-area">
+      <div class="tabs-bar">
+        @for (tab of tabs(); track $index; let i = $index) {
+        <div class="tab-item" [class.active]="i === activeTabIdx()" (click)="onSelectTab(i)">
+          <span>Screen {{ i + 1 }}</span>
+          @if (tabs().length > 1) {
+          <button class="close-tab-btn" (click)="onRemoveTab(i, $event)">×</button>
+          }
+        </div>
         }
+        <button class="add-tab-btn" (click)="onAddTab()">+</button>
       </div>
-      }
-      <button class="add-tab-btn" (click)="onAddTab()">+</button>
-    </div>
 
-    <div class="canvas-viewport" #canvasArea>
-      <div class="canvas-container" [style.width.px]="canvasWidth() * canvasScale"
-        [style.height.px]="1920 * canvasScale">
-        <app-canvas [style.width.px]="canvasWidth()" [style.height.px]="1920"
-          [style.transform]="'scale(' + canvasScale + ')'" [displayScale]="canvasScale" />
+      <div class="canvas-viewport" #canvasArea>
+        <div class="canvas-container" [style.width.px]="canvasWidth() * canvasScale"
+          [style.height.px]="1920 * canvasScale">
+          <app-canvas [style.width.px]="canvasWidth()" [style.height.px]="1920"
+            [style.transform]="'scale(' + canvasScale + ')'" [displayScale]="canvasScale" />
+        </div>
       </div>
-    </div>
-  </main>
+    </main>
 
-  <!-- Right: Properties -->
-  <aside class="sidebar right-sidebar">
-    <app-properties-panel />
-  </aside>
+    <!-- Right: Properties -->
+    <aside class="sidebar right-sidebar">
+      <app-properties-panel />
+    </aside>
+  </div>
 </div>
