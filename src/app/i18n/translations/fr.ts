@@ -66,6 +66,12 @@ export const fr: Record<string, string> = {
 
   // Phone mockup
   'phone.addScreenshot': 'Ajoutez un screenshot',
+  'phone.frameStyle': 'Style du cadre',
+  'phone.frameColor': 'Couleur du cadre',
+  'phone.styleOriginal': 'Original',
+  'phone.styleClay': 'Clay (Argile)',
+  'phone.styleFlat': 'Plat (Flat)',
+  'phone.styleMinimal': 'Minimal',
 
   // Layouts
   'layout.topTextPhone.name': 'Texte en haut + Téléphone',

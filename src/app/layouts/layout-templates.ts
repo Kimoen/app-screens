@@ -59,6 +59,8 @@ export const LAYOUT_TEMPLATES: LayoutTemplate[] = [
         glowEnabled: false,
         glowColor: '#3b82f6',
         glowSize: 20,
+        frameType: 'original',
+        frameColor: '#1c1c1e',
       };
       return [phone, text];
     },
@@ -88,6 +90,8 @@ export const LAYOUT_TEMPLATES: LayoutTemplate[] = [
         glowEnabled: false,
         glowColor: '#3b82f6',
         glowSize: 20,
+        frameType: 'original',
+        frameColor: '#1c1c1e',
       };
       const text: TextElement = {
         id: generateId(),
@@ -137,6 +141,8 @@ export const LAYOUT_TEMPLATES: LayoutTemplate[] = [
         glowEnabled: false,
         glowColor: '#3b82f6',
         glowSize: 20,
+        frameType: 'original',
+        frameColor: '#1c1c1e',
       };
       const text: TextElement = {
         id: generateId(),

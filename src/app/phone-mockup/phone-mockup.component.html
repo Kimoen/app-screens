@@ -1,19 +1,19 @@
 <div class="phone-frame" [style.width.px]="width" [style.height.px]="height">
   @for (ring of glowRings; track $index) {
-    <div [ngStyle]="ring"></div>
+  <div [ngStyle]="ring"></div>
   }
-  <div class="phone-bezel" [ngStyle]="bezelStyle">
+  <div [class]="bezelClasses" [ngStyle]="bezelStyle">
     <!-- Punch-hole camera -->
     <div class="punch-hole"></div>
     <!-- Screen content -->
     <div class="phone-screen">
       @if (screenshotSrc) {
-        <img [src]="screenshotSrc" class="screenshot" alt="Screenshot" />
+      <img [src]="screenshotSrc" class="screenshot" alt="Screenshot" />
       } @else {
-        <div class="placeholder">
-          <span>📱</span>
-          <p>{{ 'phone.addScreenshot' | translate }}</p>
-        </div>
+      <div class="placeholder">
+        <span>📱</span>
+        <p>{{ 'phone.addScreenshot' | translate }}</p>
+      </div>
       }
     </div>
   </div>

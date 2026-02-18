@@ -133,6 +133,8 @@ export class CanvasStateService {
       glowEnabled: false,
       glowColor: '#3b82f6',
       glowSize: 20,
+      frameType: 'original',
+      frameColor: '#1c1c1e',
     };
     this.state.update((s) => ({
       ...s,

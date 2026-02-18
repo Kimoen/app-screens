@@ -1,208 +1,229 @@
 <div class="panel">
   @if (selectedElement(); as el) {
-    <h3>{{ 'props.title' | translate }}</h3>
+  <h3>{{ 'props.title' | translate }}</h3>
 
-    <!-- Common properties -->
-    <section class="section">
-      <h4>{{ 'props.positionSize' | translate }}</h4>
-      <div class="field-row">
-        <div class="field">
-          <label>X</label>
-          <input type="number" [value]="el.x" (change)="onNumberChange('x', $event)" />
-        </div>
-        <div class="field">
-          <label>Y</label>
-          <input type="number" [value]="el.y" (change)="onNumberChange('y', $event)" />
-        </div>
-      </div>
-      <div class="field-row">
-        <div class="field">
-          <label>{{ 'props.width' | translate }}</label>
-          <input type="number" [value]="el.width" (change)="onNumberChange('width', $event)" />
-        </div>
-        <div class="field">
-          <label>{{ 'props.height' | translate }}</label>
-          <input type="number" [value]="el.height" (change)="onNumberChange('height', $event)" />
-        </div>
+  <!-- Common properties -->
+  <section class="section">
+    <h4>{{ 'props.positionSize' | translate }}</h4>
+    <div class="field-row">
+      <div class="field">
+        <label>X</label>
+        <input type="number" [value]="el.x" (change)="onNumberChange('x', $event)" />
       </div>
       <div class="field">
-        <label>{{ 'props.rotation' | translate }}</label>
-        <input type="range" min="-180" max="180" [value]="el.rotation" (input)="onNumberChange('rotation', $event)" />
-        <span class="value">{{ el.rotation }}°</span>
+        <label>Y</label>
+        <input type="number" [value]="el.y" (change)="onNumberChange('y', $event)" />
       </div>
-      @if (el.type === 'image' || el.type === 'phone-mockup') {
-        <div class="field">
-          <label>{{ 'props.size' | translate }}</label>
-          <input type="range" min="50" max="1200" [value]="el.width" (input)="onScaleSlider($event)" />
-          <span class="value">{{ el.width }}px</span>
-        </div>
-      }
-    </section>
-
-    <!-- Text properties -->
-    @if (textEl; as t) {
-      <section class="section">
-        <h4>{{ 'props.text' | translate }}</h4>
-        <div class="field">
-          <label>{{ 'props.content' | translate }}</label>
-          <textarea rows="3" [ngModel]="t.content" (ngModelChange)="updateProp('content', $event)"></textarea>
-        </div>
-        <div class="field">
-          <label>{{ 'props.font' | translate }}</label>
-          <select [ngModel]="t.fontFamily" (ngModelChange)="updateProp('fontFamily', $event)">
-            @for (font of fonts; track font) {
-              <option [value]="font" [style.fontFamily]="font">{{ font }}</option>
-            }
-          </select>
-        </div>
-        <div class="field-row">
-          <div class="field">
-            <label>{{ 'props.fontSize' | translate }}</label>
-            <input type="number" [value]="t.fontSize" min="8" max="300" (change)="onNumberChange('fontSize', $event)" />
-          </div>
-          <div class="field">
-            <label>{{ 'props.fontWeight' | translate }}</label>
-            <select [ngModel]="t.fontWeight" (ngModelChange)="updateProp('fontWeight', $event)">
-              <option value="300">Light</option>
-              <option value="400">Normal</option>
-              <option value="500">Medium</option>
-              <option value="600">Semibold</option>
-              <option value="700">Bold</option>
-              <option value="800">Extra Bold</option>
-              <option value="900">Black</option>
-            </select>
-          </div>
-        </div>
-        <div class="field-row">
-          <div class="field">
-            <label>{{ 'props.fontStyle' | translate }}</label>
-            <select [ngModel]="t.fontStyle" (ngModelChange)="updateProp('fontStyle', $event)">
-              <option value="normal">Normal</option>
-              <option value="italic">{{ 'props.fontStyleItalic' | translate }}</option>
-            </select>
-          </div>
-          <div class="field">
-            <label>{{ 'props.alignment' | translate }}</label>
-            <select [ngModel]="t.textAlign" (ngModelChange)="updateProp('textAlign', $event)">
-              <option value="left">{{ 'props.alignLeft' | translate }}</option>
-              <option value="center">{{ 'props.alignCenter' | translate }}</option>
-              <option value="right">{{ 'props.alignRight' | translate }}</option>
-            </select>
-          </div>
-        </div>
-        <div class="field-row">
-          <div class="field">
-            <label>{{ 'props.color' | translate }}</label>
-            <input type="color" [ngModel]="t.color" (ngModelChange)="updateProp('color', $event)" />
-          </div>
-          <div class="field">
-            <label>{{ 'props.background' | translate }}</label>
-            <input type="color" [ngModel]="t.backgroundColor === 'transparent' ? '#000000' : t.backgroundColor" (ngModelChange)="updateProp('backgroundColor', $event)" />
-          </div>
-        </div>
-        <div class="field">
-          <label>
-            <input type="checkbox" [checked]="t.backgroundColor === 'transparent'" (change)="updateProp('backgroundColor', t.backgroundColor === 'transparent' ? '#b388ff80' : 'transparent')" />
-            {{ 'props.transparentBg' | translate }}
-          </label>
-        </div>
-        <div class="field-row">
-          <div class="field">
-            <label>Padding</label>
-            <input type="number" [value]="t.padding" min="0" max="100" (change)="onNumberChange('padding', $event)" />
-          </div>
-          <div class="field">
-            <label>Radius</label>
-            <input type="number" [value]="t.borderRadius" min="0" max="100" (change)="onNumberChange('borderRadius', $event)" />
-          </div>
-        </div>
-      </section>
-    }
-
-    <!-- Image properties -->
-    @if (imageEl; as img) {
-      <section class="section">
-        <h4>{{ 'props.image' | translate }}</h4>
-        <div class="field">
-          <label>{{ 'props.opacity' | translate }}</label>
-          <input type="range" min="0" max="1" step="0.05" [value]="img.opacity" (input)="updateProp('opacity', +$any($event.target).value)" />
-          <span class="value">{{ img.opacity | number:'1.2-2' }}</span>
-        </div>
-        <div class="field">
-          <label>{{ 'props.objectFit' | translate }}</label>
-          <select [ngModel]="img.objectFit" (ngModelChange)="updateProp('objectFit', $event)">
-            <option value="contain">Contain</option>
-            <option value="cover">Cover</option>
-            <option value="fill">Fill</option>
-          </select>
-        </div>
-        <button class="btn btn-secondary" (click)="changeImageSrc()">{{ 'props.changeImage' | translate }}</button>
-      </section>
-    }
-
-    <!-- Phone mockup properties -->
-    @if (phoneEl; as phone) {
-      <section class="section">
-        <h4>{{ 'props.phone' | translate }}</h4>
-        <button class="btn btn-secondary" (click)="changeScreenshot()">
-          {{ (phone.screenshotSrc ? 'props.changeScreenshot' : 'props.addScreenshot') | translate }}
-        </button>
-      </section>
-
-      <section class="section">
-        <h4>{{ 'props.border' | translate }}</h4>
-        <div class="field">
-          <label>
-            <input type="checkbox" [checked]="phone.borderEnabled" (change)="updateProp('borderEnabled', !phone.borderEnabled)" />
-            {{ 'props.enableBorder' | translate }}
-          </label>
-        </div>
-        @if (phone.borderEnabled) {
-          <div class="field-row">
-            <div class="field">
-              <label>{{ 'props.borderColor' | translate }}</label>
-              <input type="color" [ngModel]="phone.borderColor" (ngModelChange)="updateProp('borderColor', $event)" />
-            </div>
-            <div class="field">
-              <label>{{ 'props.borderThickness' | translate }}</label>
-              <input type="number" [value]="phone.borderWidth" min="1" max="10" (change)="onNumberChange('borderWidth', $event)" />
-            </div>
-          </div>
-        }
-      </section>
-
-      <section class="section">
-        <h4>Glow</h4>
-        <div class="field">
-          <label>
-            <input type="checkbox" [checked]="phone.glowEnabled" (change)="updateProp('glowEnabled', !phone.glowEnabled)" />
-            {{ 'props.enableGlow' | translate }}
-          </label>
-        </div>
-        @if (phone.glowEnabled) {
-          <div class="field-row">
-            <div class="field">
-              <label>{{ 'props.glowColor' | translate }}</label>
-              <input type="color" [ngModel]="phone.glowColor" (ngModelChange)="updateProp('glowColor', $event)" />
-            </div>
-            <div class="field">
-              <label>{{ 'props.glowRadius' | translate }}</label>
-              <input type="number" [value]="phone.glowSize" min="5" max="60" (change)="onNumberChange('glowSize', $event)" />
-            </div>
-          </div>
-        }
-      </section>
-    }
-
-    <!-- Actions -->
-    <section class="section actions">
-      <button class="btn btn-secondary" (click)="bringToFront()">{{ 'props.bringToFront' | translate }}</button>
-      <button class="btn btn-secondary" (click)="sendToBack()">{{ 'props.sendToBack' | translate }}</button>
-      <button class="btn btn-danger" (click)="deleteElement()">{{ 'props.delete' | translate }}</button>
-    </section>
-  } @else {
-    <div class="no-selection">
-      <p>{{ 'props.noSelection' | translate }}</p>
     </div>
+    <div class="field-row">
+      <div class="field">
+        <label>{{ 'props.width' | translate }}</label>
+        <input type="number" [value]="el.width" (change)="onNumberChange('width', $event)" />
+      </div>
+      <div class="field">
+        <label>{{ 'props.height' | translate }}</label>
+        <input type="number" [value]="el.height" (change)="onNumberChange('height', $event)" />
+      </div>
+    </div>
+    <div class="field">
+      <label>{{ 'props.rotation' | translate }}</label>
+      <input type="range" min="-180" max="180" [value]="el.rotation" (input)="onNumberChange('rotation', $event)" />
+      <span class="value">{{ el.rotation }}°</span>
+    </div>
+    @if (el.type === 'image' || el.type === 'phone-mockup') {
+    <div class="field">
+      <label>{{ 'props.size' | translate }}</label>
+      <input type="range" min="50" max="1200" [value]="el.width" (input)="onScaleSlider($event)" />
+      <span class="value">{{ el.width }}px</span>
+    </div>
+    }
+  </section>
+
+  <!-- Text properties -->
+  @if (textEl; as t) {
+  <section class="section">
+    <h4>{{ 'props.text' | translate }}</h4>
+    <div class="field">
+      <label>{{ 'props.content' | translate }}</label>
+      <textarea rows="3" [ngModel]="t.content" (ngModelChange)="updateProp('content', $event)"></textarea>
+    </div>
+    <div class="field">
+      <label>{{ 'props.font' | translate }}</label>
+      <select [ngModel]="t.fontFamily" (ngModelChange)="updateProp('fontFamily', $event)">
+        @for (font of fonts; track font) {
+        <option [value]="font" [style.fontFamily]="font">{{ font }}</option>
+        }
+      </select>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label>{{ 'props.fontSize' | translate }}</label>
+        <input type="number" [value]="t.fontSize" min="8" max="300" (change)="onNumberChange('fontSize', $event)" />
+      </div>
+      <div class="field">
+        <label>{{ 'props.fontWeight' | translate }}</label>
+        <select [ngModel]="t.fontWeight" (ngModelChange)="updateProp('fontWeight', $event)">
+          <option value="300">Light</option>
+          <option value="400">Normal</option>
+          <option value="500">Medium</option>
+          <option value="600">Semibold</option>
+          <option value="700">Bold</option>
+          <option value="800">Extra Bold</option>
+          <option value="900">Black</option>
+        </select>
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label>{{ 'props.fontStyle' | translate }}</label>
+        <select [ngModel]="t.fontStyle" (ngModelChange)="updateProp('fontStyle', $event)">
+          <option value="normal">Normal</option>
+          <option value="italic">{{ 'props.fontStyleItalic' | translate }}</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>{{ 'props.alignment' | translate }}</label>
+        <select [ngModel]="t.textAlign" (ngModelChange)="updateProp('textAlign', $event)">
+          <option value="left">{{ 'props.alignLeft' | translate }}</option>
+          <option value="center">{{ 'props.alignCenter' | translate }}</option>
+          <option value="right">{{ 'props.alignRight' | translate }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label>{{ 'props.color' | translate }}</label>
+        <input type="color" [ngModel]="t.color" (ngModelChange)="updateProp('color', $event)" />
+      </div>
+      <div class="field">
+        <label>{{ 'props.background' | translate }}</label>
+        <input type="color" [ngModel]="t.backgroundColor === 'transparent' ? '#000000' : t.backgroundColor"
+          (ngModelChange)="updateProp('backgroundColor', $event)" />
+      </div>
+    </div>
+    <div class="field">
+      <label>
+        <input type="checkbox" [checked]="t.backgroundColor === 'transparent'"
+          (change)="updateProp('backgroundColor', t.backgroundColor === 'transparent' ? '#b388ff80' : 'transparent')" />
+        {{ 'props.transparentBg' | translate }}
+      </label>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label>Padding</label>
+        <input type="number" [value]="t.padding" min="0" max="100" (change)="onNumberChange('padding', $event)" />
+      </div>
+      <div class="field">
+        <label>Radius</label>
+        <input type="number" [value]="t.borderRadius" min="0" max="100"
+          (change)="onNumberChange('borderRadius', $event)" />
+      </div>
+    </div>
+  </section>
+  }
+
+  <!-- Image properties -->
+  @if (imageEl; as img) {
+  <section class="section">
+    <h4>{{ 'props.image' | translate }}</h4>
+    <div class="field">
+      <label>{{ 'props.opacity' | translate }}</label>
+      <input type="range" min="0" max="1" step="0.05" [value]="img.opacity"
+        (input)="updateProp('opacity', +$any($event.target).value)" />
+      <span class="value">{{ img.opacity | number:'1.2-2' }}</span>
+    </div>
+    <div class="field">
+      <label>{{ 'props.objectFit' | translate }}</label>
+      <select [ngModel]="img.objectFit" (ngModelChange)="updateProp('objectFit', $event)">
+        <option value="contain">Contain</option>
+        <option value="cover">Cover</option>
+        <option value="fill">Fill</option>
+      </select>
+    </div>
+    <button class="btn btn-secondary" (click)="changeImageSrc()">{{ 'props.changeImage' | translate }}</button>
+  </section>
+  }
+
+  <!-- Phone mockup properties -->
+  @if (phoneEl; as phone) {
+  <section class="section">
+    <h4>{{ 'props.phone' | translate }}</h4>
+    <button class="btn btn-secondary" (click)="changeScreenshot()">
+      {{ (phone.screenshotSrc ? 'props.changeScreenshot' : 'props.addScreenshot') | translate }}
+    </button>
+    <div class="field-row" style="margin-top: 12px;">
+      <div class="field">
+        <label>{{ 'phone.frameStyle' | translate }}</label>
+        <select [ngModel]="phone.frameType" (ngModelChange)="updateProp('frameType', $event)">
+          <option value="original">{{ 'phone.styleOriginal' | translate }}</option>
+          <option value="clay">{{ 'phone.styleClay' | translate }}</option>
+          <option value="flat">{{ 'phone.styleFlat' | translate }}</option>
+          <option value="minimal">{{ 'phone.styleMinimal' | translate }}</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>{{ 'phone.frameColor' | translate }}</label>
+        <input type="color" [ngModel]="phone.frameColor" (ngModelChange)="updateProp('frameColor', $event)" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h4>{{ 'props.border' | translate }}</h4>
+    <div class="field">
+      <label>
+        <input type="checkbox" [checked]="phone.borderEnabled"
+          (change)="updateProp('borderEnabled', !phone.borderEnabled)" />
+        {{ 'props.enableBorder' | translate }}
+      </label>
+    </div>
+    @if (phone.borderEnabled) {
+    <div class="field-row">
+      <div class="field">
+        <label>{{ 'props.borderColor' | translate }}</label>
+        <input type="color" [ngModel]="phone.borderColor" (ngModelChange)="updateProp('borderColor', $event)" />
+      </div>
+      <div class="field">
+        <label>{{ 'props.borderThickness' | translate }}</label>
+        <input type="number" [value]="phone.borderWidth" min="1" max="10"
+          (change)="onNumberChange('borderWidth', $event)" />
+      </div>
+    </div>
+    }
+  </section>
+
+  <section class="section">
+    <h4>Glow</h4>
+    <div class="field">
+      <label>
+        <input type="checkbox" [checked]="phone.glowEnabled" (change)="updateProp('glowEnabled', !phone.glowEnabled)" />
+        {{ 'props.enableGlow' | translate }}
+      </label>
+    </div>
+    @if (phone.glowEnabled) {
+    <div class="field-row">
+      <div class="field">
+        <label>{{ 'props.glowColor' | translate }}</label>
+        <input type="color" [ngModel]="phone.glowColor" (ngModelChange)="updateProp('glowColor', $event)" />
+      </div>
+      <div class="field">
+        <label>{{ 'props.glowRadius' | translate }}</label>
+        <input type="number" [value]="phone.glowSize" min="5" max="60" (change)="onNumberChange('glowSize', $event)" />
+      </div>
+    </div>
+    }
+  </section>
+  }
+
+  <!-- Actions -->
+  <section class="section actions">
+    <button class="btn btn-secondary" (click)="bringToFront()">{{ 'props.bringToFront' | translate }}</button>
+    <button class="btn btn-secondary" (click)="sendToBack()">{{ 'props.sendToBack' | translate }}</button>
+    <button class="btn btn-danger" (click)="deleteElement()">{{ 'props.delete' | translate }}</button>
+  </section>
+  } @else {
+  <div class="no-selection">
+    <p>{{ 'props.noSelection' | translate }}</p>
+  </div>
   }
 </div>

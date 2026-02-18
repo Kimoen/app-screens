@@ -19,19 +19,25 @@
     }
   }
 
-  .btn-lang {
-    background: #374151;
-    color: #e0e0e0;
-    font-size: 12px;
-    font-weight: 600;
-    padding: 4px 10px;
-    border-radius: 4px;
-    border: 1px solid #555;
-    cursor: pointer;
-    min-width: 36px;
+  .lang-selector {
+    select {
+      background: #374151;
+      color: #e0e0e0;
+      font-size: 13px;
+      padding: 6px 10px;
+      border-radius: 4px;
+      border: 1px solid #555;
+      cursor: pointer;
+      outline: none;
 
-    &:hover {
-      background: #4b5563;
+      &:hover {
+        background: #4b5563;
+      }
+
+      option {
+        background: #1f2937;
+        color: #fff;
+      }
     }
   }
 }

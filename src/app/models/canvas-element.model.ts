@@ -39,6 +39,8 @@ export interface PhoneMockupElement extends BaseCanvasElement {
   glowEnabled: boolean;
   glowColor: string;
   glowSize: number;
+  frameType: 'original' | 'clay' | 'flat' | 'minimal';
+  frameColor: string;
 }
 
 export type CanvasElement = TextElement | ImageElement | PhoneMockupElement;

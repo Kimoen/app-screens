@@ -1,64 +1,39 @@
-<div
-  class="canvas-wrapper"
-  #canvasEl
-  [ngStyle]="bgStyle()"
-  [style.width.px]="canvasWidth()"
-  [style.height.px]="CANVAS_H"
-  (mousedown)="onCanvasClick()"
->
+<div class="canvas-wrapper" #canvasEl [ngStyle]="bgStyle()" [style.width.px]="canvasWidth()"
+  [style.height.px]="CANVAS_H" (mousedown)="onCanvasClick()">
   @for (el of elements(); track el.id) {
-    <div
-      class="canvas-element"
-      [class.selected]="el.id === selectedId()"
-      [ngStyle]="getElementStyle(el)"
-      (mousedown)="onElementMouseDown($event, el)"
-    >
-      @switch (el.type) {
-        @case ('text') {
-          <div class="text-content" [ngStyle]="getTextStyle(asText(el))">
-            {{ asText(el).content }}
-          </div>
-        }
-        @case ('image') {
-          <img
-            [src]="asImage(el).src"
-            [style.width.px]="el.width"
-            [style.height.px]="el.height"
-            [style.objectFit]="asImage(el).objectFit"
-            [style.opacity]="asImage(el).opacity"
-            draggable="false"
-          />
-        }
-        @case ('phone-mockup') {
-          <app-phone-mockup
-            [screenshotSrc]="asPhone(el).screenshotSrc"
-            [width]="el.width"
-            [height]="el.height"
-            [borderEnabled]="asPhone(el).borderEnabled"
-            [borderColor]="asPhone(el).borderColor"
-            [borderWidth]="asPhone(el).borderWidth"
-            [glowEnabled]="asPhone(el).glowEnabled"
-            [glowColor]="asPhone(el).glowColor"
-            [glowSize]="asPhone(el).glowSize"
-          />
-        }
-      }
-
-      <!-- Resize handle -->
-      @if (el.id === selectedId()) {
-        <div
-          class="resize-handle"
-          (mousedown)="onResizeStart($event, el)"
-        ></div>
-      }
+  <div class="canvas-element" [class.selected]="el.id === selectedId()" [ngStyle]="getElementStyle(el)"
+    (mousedown)="onElementMouseDown($event, el)">
+    @switch (el.type) {
+    @case ('text') {
+    <div class="text-content" [ngStyle]="getTextStyle(asText(el))">
+      {{ asText(el).content }}
     </div>
+    }
+    @case ('image') {
+    <img [src]="asImage(el).src" [style.width.px]="el.width" [style.height.px]="el.height"
+      [style.objectFit]="asImage(el).objectFit" [style.opacity]="asImage(el).opacity" draggable="false" />
+    }
+    @case ('phone-mockup') {
+    <app-phone-mockup [screenshotSrc]="asPhone(el).screenshotSrc" [width]="el.width" [height]="el.height"
+      [borderEnabled]="asPhone(el).borderEnabled" [borderColor]="asPhone(el).borderColor"
+      [borderWidth]="asPhone(el).borderWidth" [glowEnabled]="asPhone(el).glowEnabled"
+      [glowColor]="asPhone(el).glowColor" [glowSize]="asPhone(el).glowSize" [frameType]="asPhone(el).frameType"
+      [frameColor]="asPhone(el).frameColor" />
+    }
+    }
+
+    <!-- Resize handle -->
+    @if (el.id === selectedId()) {
+    <div class="resize-handle" (mousedown)="onResizeStart($event, el)"></div>
+    }
+  </div>
   }
 
   <!-- Split guides -->
   @if (screenMode() >= 2) {
-    <div class="split-guide" [style.left.px]="SLICE_W"></div>
+  <div class="split-guide" [style.left.px]="SLICE_W"></div>
   }
   @if (screenMode() >= 3) {
-    <div class="split-guide" [style.left.px]="SLICE_W * 2"></div>
+  <div class="split-guide" [style.left.px]="SLICE_W * 2"></div>
   }
 </div>
