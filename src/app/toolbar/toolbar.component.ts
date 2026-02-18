@@ -6,11 +6,12 @@ import { LAYOUT_TEMPLATES, LayoutTemplate } from '../layouts/layout-templates';
 import { BUILTIN_IMAGES, BuiltinImage } from '../models/builtin-images';
 import { TranslationService } from '../i18n/translation.service';
 import { TranslatePipe } from '../i18n/translate.pipe';
+import { ColorHexInputComponent } from '../color-hex-input/color-hex-input.component';
 
 @Component({
   selector: 'app-toolbar',
   standalone: true,
-  imports: [CommonModule, FormsModule, TranslatePipe],
+  imports: [CommonModule, FormsModule, TranslatePipe, ColorHexInputComponent],
   templateUrl: './toolbar.component.html',
   styleUrl: './toolbar.component.scss',
 })
@@ -77,6 +78,10 @@ export class ToolbarComponent {
 
   addEmptyPhoneMockup() {
     this.canvasState.addPhoneMockup('');
+  }
+
+  addBanner() {
+    this.canvasState.addBanner(this.i18n.t('defaults.bannerContent'));
   }
 
   addBuiltinImage(image: BuiltinImage) {

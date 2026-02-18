@@ -37,6 +37,18 @@
       <span class="value">{{ el.width }}px</span>
     </div>
     }
+    @if (el.type === 'banner') {
+    <div class="field">
+      <label>{{ 'props.width' | translate }}</label>
+      <input type="range" min="50" max="3000" [value]="el.width" (input)="onNumberChange('width', $event)" />
+      <span class="value">{{ el.width }}px</span>
+    </div>
+    <div class="field">
+      <label>{{ 'props.height' | translate }}</label>
+      <input type="range" min="30" max="400" [value]="el.height" (input)="onNumberChange('height', $event)" />
+      <span class="value">{{ el.height }}px</span>
+    </div>
+    }
   </section>
 
   <!-- Text properties -->
@@ -93,12 +105,12 @@
     <div class="field-row">
       <div class="field">
         <label>{{ 'props.color' | translate }}</label>
-        <input type="color" [ngModel]="t.color" (ngModelChange)="updateProp('color', $event)" />
+        <app-color-hex-input [color]="t.color" (colorChange)="updateProp('color', $event)" />
       </div>
       <div class="field">
         <label>{{ 'props.background' | translate }}</label>
-        <input type="color" [ngModel]="t.backgroundColor === 'transparent' ? '#000000' : t.backgroundColor"
-          (ngModelChange)="updateProp('backgroundColor', $event)" />
+        <app-color-hex-input [color]="t.backgroundColor === 'transparent' ? '#000000' : t.backgroundColor"
+          (colorChange)="updateProp('backgroundColor', $event)" />
       </div>
     </div>
     <div class="field">
@@ -163,7 +175,7 @@
       </div>
       <div class="field">
         <label>{{ 'phone.frameColor' | translate }}</label>
-        <input type="color" [ngModel]="phone.frameColor" (ngModelChange)="updateProp('frameColor', $event)" />
+        <app-color-hex-input [color]="phone.frameColor" (colorChange)="updateProp('frameColor', $event)" />
       </div>
     </div>
   </section>
@@ -181,7 +193,7 @@
     <div class="field-row">
       <div class="field">
         <label>{{ 'props.borderColor' | translate }}</label>
-        <input type="color" [ngModel]="phone.borderColor" (ngModelChange)="updateProp('borderColor', $event)" />
+        <app-color-hex-input [color]="phone.borderColor" (colorChange)="updateProp('borderColor', $event)" />
       </div>
       <div class="field">
         <label>{{ 'props.borderThickness' | translate }}</label>
@@ -204,12 +216,180 @@
     <div class="field-row">
       <div class="field">
         <label>{{ 'props.glowColor' | translate }}</label>
-        <input type="color" [ngModel]="phone.glowColor" (ngModelChange)="updateProp('glowColor', $event)" />
+        <app-color-hex-input [color]="phone.glowColor" (colorChange)="updateProp('glowColor', $event)" />
       </div>
       <div class="field">
         <label>{{ 'props.glowRadius' | translate }}</label>
         <input type="number" [value]="phone.glowSize" min="5" max="60" (change)="onNumberChange('glowSize', $event)" />
       </div>
+    </div>
+    }
+  </section>
+  }
+
+  <!-- Banner properties -->
+  @if (bannerEl; as b) {
+  <section class="section">
+    <h4>{{ 'banner.text' | translate }}</h4>
+    <div class="field">
+      <label>{{ 'props.content' | translate }}</label>
+      <textarea rows="2" [ngModel]="b.content" (ngModelChange)="updateProp('content', $event)"></textarea>
+    </div>
+    <div class="field">
+      <label>{{ 'props.font' | translate }}</label>
+      <select [ngModel]="b.fontFamily" (ngModelChange)="updateProp('fontFamily', $event)">
+        @for (font of fonts; track font) {
+        <option [value]="font" [style.fontFamily]="font">{{ font }}</option>
+        }
+      </select>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label>{{ 'props.fontSize' | translate }}</label>
+        <input type="number" [value]="b.fontSize" min="8" max="300" (change)="onNumberChange('fontSize', $event)" />
+      </div>
+      <div class="field">
+        <label>{{ 'props.fontWeight' | translate }}</label>
+        <select [ngModel]="b.fontWeight" (ngModelChange)="updateProp('fontWeight', $event)">
+          <option value="300">Light</option>
+          <option value="400">Normal</option>
+          <option value="500">Medium</option>
+          <option value="600">Semibold</option>
+          <option value="700">Bold</option>
+          <option value="800">Extra Bold</option>
+          <option value="900">Black</option>
+        </select>
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label>{{ 'props.fontStyle' | translate }}</label>
+        <select [ngModel]="b.fontStyle" (ngModelChange)="updateProp('fontStyle', $event)">
+          <option value="normal">Normal</option>
+          <option value="italic">{{ 'props.fontStyleItalic' | translate }}</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>{{ 'props.alignment' | translate }}</label>
+        <select [ngModel]="b.textAlign" (ngModelChange)="updateProp('textAlign', $event)">
+          <option value="left">{{ 'props.alignLeft' | translate }}</option>
+          <option value="center">{{ 'props.alignCenter' | translate }}</option>
+          <option value="right">{{ 'props.alignRight' | translate }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label>{{ 'props.color' | translate }}</label>
+        <app-color-hex-input [color]="b.color" (colorChange)="updateProp('color', $event)" />
+      </div>
+      <div class="field">
+        <label>Padding</label>
+        <input type="number" [value]="b.padding" min="0" max="100" (change)="onNumberChange('padding', $event)" />
+      </div>
+    </div>
+    <div class="field">
+      <label>{{ 'banner.skew' | translate }}</label>
+      <input type="range" min="-30" max="30" [value]="b.skewX"
+        (input)="onNumberChange('skewX', $event)" />
+      <span class="value">{{ b.skewX }}°</span>
+    </div>
+  </section>
+
+  <section class="section">
+    <h4>{{ 'banner.background' | translate }}</h4>
+    <div class="field">
+      <label>{{ 'toolbar.bgType' | translate }}</label>
+      <select [ngModel]="b.bgType" (ngModelChange)="updateProp('bgType', $event)">
+        <option value="solid">{{ 'toolbar.bgSolid' | translate }}</option>
+        <option value="gradient">{{ 'toolbar.bgGradient' | translate }}</option>
+      </select>
+    </div>
+    @if (b.bgType === 'solid') {
+    <div class="field">
+      <label>{{ 'toolbar.bgColor' | translate }}</label>
+      <app-color-hex-input [color]="b.bgColor" (colorChange)="updateProp('bgColor', $event)" />
+    </div>
+    } @else {
+    <div class="field">
+      <label>{{ 'toolbar.gradStart' | translate }}</label>
+      <app-color-hex-input [color]="b.gradientStart" (colorChange)="updateProp('gradientStart', $event)" />
+    </div>
+    <div class="field">
+      <label>{{ 'toolbar.gradEnd' | translate }}</label>
+      <app-color-hex-input [color]="b.gradientEnd" (colorChange)="updateProp('gradientEnd', $event)" />
+    </div>
+    <div class="field">
+      <label>{{ 'banner.gradAngle' | translate }}</label>
+      <input type="range" min="0" max="360" [value]="b.gradientAngle"
+        (input)="onNumberChange('gradientAngle', $event)" />
+      <span class="value">{{ b.gradientAngle }}°</span>
+    </div>
+    }
+  </section>
+
+  <section class="section">
+    <h4>{{ 'props.border' | translate }}</h4>
+    <div class="field">
+      <label>
+        <input type="checkbox" [checked]="b.borderEnabled"
+          (change)="updateProp('borderEnabled', !b.borderEnabled)" />
+        {{ 'props.enableBorder' | translate }}
+      </label>
+    </div>
+    @if (b.borderEnabled) {
+    <div class="field-row">
+      <div class="field">
+        <label>{{ 'props.borderColor' | translate }}</label>
+        <app-color-hex-input [color]="b.borderColor" (colorChange)="updateProp('borderColor', $event)" />
+      </div>
+    </div>
+    <div class="field">
+      <label>{{ 'props.borderThickness' | translate }}</label>
+      <input type="range" min="0" max="20" [value]="b.borderWidth"
+        (input)="onNumberChange('borderWidth', $event)" />
+      <span class="value">{{ b.borderWidth }}px</span>
+    </div>
+    <div class="field">
+      <label>Radius</label>
+      <input type="range" min="0" max="100" [value]="b.borderRadius"
+        (input)="onNumberChange('borderRadius', $event)" />
+      <span class="value">{{ b.borderRadius }}px</span>
+    </div>
+    }
+  </section>
+
+  <section class="section">
+    <h4>{{ 'banner.shadow' | translate }}</h4>
+    <div class="field">
+      <label>
+        <input type="checkbox" [checked]="b.shadowEnabled"
+          (change)="updateProp('shadowEnabled', !b.shadowEnabled)" />
+        {{ 'banner.enableShadow' | translate }}
+      </label>
+    </div>
+    @if (b.shadowEnabled) {
+    <div class="field">
+      <label>{{ 'props.color' | translate }}</label>
+      <app-color-hex-input [color]="b.shadowColor" (colorChange)="updateProp('shadowColor', $event)" />
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label>X</label>
+        <input type="number" [value]="b.shadowOffsetX" min="-50" max="50"
+          (change)="onNumberChange('shadowOffsetX', $event)" />
+      </div>
+      <div class="field">
+        <label>Y</label>
+        <input type="number" [value]="b.shadowOffsetY" min="-50" max="50"
+          (change)="onNumberChange('shadowOffsetY', $event)" />
+      </div>
+    </div>
+    <div class="field">
+      <label>{{ 'banner.blur' | translate }}</label>
+      <input type="range" min="0" max="80" [value]="b.shadowBlur"
+        (input)="onNumberChange('shadowBlur', $event)" />
+      <span class="value">{{ b.shadowBlur }}px</span>
     </div>
     }
   </section>

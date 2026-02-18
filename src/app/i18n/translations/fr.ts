@@ -85,8 +85,19 @@ export const fr: Record<string, string> = {
   'layout.offsetPhoneSide.desc': 'Téléphone à droite, texte à gauche verticalement centré',
   'layout.offsetPhoneSide.content': 'Titre\ncôté\ngauche',
 
+  // Banner
+  'toolbar.addBanner': '+ Bandeau titre',
+  'banner.text': 'Texte',
+  'banner.background': 'Fond',
+  'banner.gradAngle': 'Angle',
+  'banner.shadow': 'Ombre portée',
+  'banner.enableShadow': 'Activer l\'ombre',
+  'banner.blur': 'Flou',
+  'banner.skew': 'Inclinaison',
+
   // Default text
   'defaults.textContent': 'Votre texte ici',
+  'defaults.bannerContent': 'Titre',
 
   // Built-in images
   'builtin.handTouch': 'Main (touch)',

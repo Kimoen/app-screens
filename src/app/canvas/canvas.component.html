@@ -13,6 +13,11 @@
     <img [src]="asImage(el).src" [style.width.px]="el.width" [style.height.px]="el.height"
       [style.objectFit]="asImage(el).objectFit" [style.opacity]="asImage(el).opacity" draggable="false" />
     }
+    @case ('banner') {
+    <div class="banner-content" [ngStyle]="getBannerStyle(asBanner(el))">
+      <span class="banner-text" [ngStyle]="getBannerTextStyle(asBanner(el))">{{ asBanner(el).content }}</span>
+    </div>
+    }
     @case ('phone-mockup') {
     <app-phone-mockup [screenshotSrc]="asPhone(el).screenshotSrc" [width]="el.width" [height]="el.height"
       [borderEnabled]="asPhone(el).borderEnabled" [borderColor]="asPhone(el).borderColor"

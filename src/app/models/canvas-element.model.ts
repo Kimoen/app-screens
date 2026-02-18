@@ -1,6 +1,6 @@
 export interface BaseCanvasElement {
   id: string;
-  type: 'text' | 'image' | 'phone-mockup';
+  type: 'text' | 'image' | 'phone-mockup' | 'banner';
   x: number;
   y: number;
   width: number;
@@ -43,7 +43,34 @@ export interface PhoneMockupElement extends BaseCanvasElement {
   frameColor: string;
 }
 
-export type CanvasElement = TextElement | ImageElement | PhoneMockupElement;
+export interface BannerElement extends BaseCanvasElement {
+  type: 'banner';
+  content: string;
+  fontFamily: string;
+  fontSize: number;
+  fontWeight: string;
+  fontStyle: 'normal' | 'italic';
+  color: string;
+  textAlign: 'left' | 'center' | 'right';
+  padding: number;
+  bgType: 'solid' | 'gradient';
+  bgColor: string;
+  gradientStart: string;
+  gradientEnd: string;
+  gradientAngle: number;
+  borderEnabled: boolean;
+  borderColor: string;
+  borderWidth: number;
+  borderRadius: number;
+  shadowEnabled: boolean;
+  shadowColor: string;
+  shadowOffsetX: number;
+  shadowOffsetY: number;
+  shadowBlur: number;
+  skewX: number;
+}
+
+export type CanvasElement = TextElement | ImageElement | PhoneMockupElement | BannerElement;
 
 export interface CanvasState {
   width: number;

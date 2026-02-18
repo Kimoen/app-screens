@@ -2,8 +2,9 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CanvasStateService } from '../services/canvas-state.service';
-import { TextElement, ImageElement, PhoneMockupElement } from '../models/canvas-element.model';
+import { TextElement, ImageElement, PhoneMockupElement, BannerElement } from '../models/canvas-element.model';
 import { TranslatePipe } from '../i18n/translate.pipe';
+import { ColorHexInputComponent } from '../color-hex-input/color-hex-input.component';
 
 const GOOGLE_FONTS = [
   'Poppins', 'Roboto', 'Open Sans', 'Montserrat', 'Lato', 'Inter',
@@ -15,7 +16,7 @@ const GOOGLE_FONTS = [
 @Component({
   selector: 'app-properties-panel',
   standalone: true,
-  imports: [CommonModule, FormsModule, TranslatePipe],
+  imports: [CommonModule, FormsModule, TranslatePipe, ColorHexInputComponent],
   templateUrl: './properties-panel.component.html',
   styleUrl: './properties-panel.component.scss',
 })
@@ -38,6 +39,11 @@ export class PropertiesPanelComponent {
   get phoneEl(): PhoneMockupElement | null {
     const el = this.selectedElement();
     return el?.type === 'phone-mockup' ? (el as PhoneMockupElement) : null;
+  }
+
+  get bannerEl(): BannerElement | null {
+    const el = this.selectedElement();
+    return el?.type === 'banner' ? (el as BannerElement) : null;
   }
 
   updateProp(prop: string, value: any) {

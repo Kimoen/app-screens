@@ -23,6 +23,7 @@
       <button class="btn btn-primary" (click)="addPhoneMockup()">{{ 'toolbar.addPhone' | translate }}</button>
       <button class="btn btn-secondary" (click)="addEmptyPhoneMockup()">{{ 'toolbar.addEmptyPhone' | translate
         }}</button>
+      <button class="btn btn-primary" (click)="addBanner()">{{ 'toolbar.addBanner' | translate }}</button>
     </div>
   </section>
 
@@ -52,16 +53,16 @@
     @if (bgType === 'solid') {
     <div class="field">
       <label>{{ 'toolbar.bgColor' | translate }}</label>
-      <input type="color" [(ngModel)]="bgColor" (ngModelChange)="onBgColorChange()" />
+      <app-color-hex-input [color]="bgColor" (colorChange)="bgColor = $event; onBgColorChange()" />
     </div>
     } @else {
     <div class="field">
       <label>{{ 'toolbar.gradStart' | translate }}</label>
-      <input type="color" [(ngModel)]="gradStart" (ngModelChange)="onGradStartChange()" />
+      <app-color-hex-input [color]="gradStart" (colorChange)="gradStart = $event; onGradStartChange()" />
     </div>
     <div class="field">
       <label>{{ 'toolbar.gradEnd' | translate }}</label>
-      <input type="color" [(ngModel)]="gradEnd" (ngModelChange)="onGradEndChange()" />
+      <app-color-hex-input [color]="gradEnd" (colorChange)="gradEnd = $event; onGradEndChange()" />
     </div>
     <div class="field">
       <label>{{ 'toolbar.gradAngle' | translate : { angle: gradAngle } }}</label>

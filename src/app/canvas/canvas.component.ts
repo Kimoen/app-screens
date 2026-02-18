@@ -2,7 +2,7 @@ import { Component, ElementRef, ViewChild, Input, inject, HostListener } from '@
 import { CommonModule } from '@angular/common';
 import { CanvasStateService } from '../services/canvas-state.service';
 import { PhoneMockupComponent } from '../phone-mockup/phone-mockup.component';
-import { CanvasElement, TextElement, ImageElement, PhoneMockupElement } from '../models/canvas-element.model';
+import { CanvasElement, TextElement, ImageElement, PhoneMockupElement, BannerElement } from '../models/canvas-element.model';
 
 @Component({
   selector: 'app-canvas',
@@ -119,6 +119,10 @@ export class CanvasComponent {
     return el as PhoneMockupElement;
   }
 
+  asBanner(el: CanvasElement): BannerElement {
+    return el as BannerElement;
+  }
+
   getElementStyle(el: CanvasElement): Record<string, string> {
     return {
       position: 'absolute',
@@ -151,6 +155,48 @@ export class CanvasComponent {
       alignItems: 'center',
       justifyContent: el.textAlign === 'center' ? 'center' : el.textAlign === 'right' ? 'flex-end' : 'flex-start',
       boxSizing: 'border-box',
+    };
+  }
+
+  getBannerStyle(el: BannerElement): Record<string, string> {
+    const bg = el.bgType === 'gradient'
+      ? `linear-gradient(${el.gradientAngle}deg, ${el.gradientStart}, ${el.gradientEnd})`
+      : el.bgColor;
+    const shadow = el.shadowEnabled
+      ? `${el.shadowOffsetX}px ${el.shadowOffsetY}px ${el.shadowBlur}px ${el.shadowColor}`
+      : 'none';
+    return {
+      width: '100%',
+      height: '100%',
+      background: bg,
+      border: el.borderEnabled ? `${el.borderWidth}px solid ${el.borderColor}` : 'none',
+      borderRadius: `${el.borderRadius}px`,
+      boxShadow: shadow,
+      boxSizing: 'border-box',
+      overflow: 'hidden',
+      transform: el.skewX ? `skewX(${el.skewX}deg)` : 'none',
+    };
+  }
+
+  getBannerTextStyle(el: BannerElement): Record<string, string> {
+    return {
+      width: '100%',
+      height: '100%',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: el.textAlign === 'center' ? 'center' : el.textAlign === 'right' ? 'flex-end' : 'flex-start',
+      fontFamily: `'${el.fontFamily}', sans-serif`,
+      fontSize: `${el.fontSize}px`,
+      fontWeight: el.fontWeight,
+      fontStyle: el.fontStyle,
+      color: el.color,
+      textAlign: el.textAlign,
+      padding: `${el.padding}px`,
+      boxSizing: 'border-box',
+      whiteSpace: 'pre-wrap',
+      wordBreak: 'break-word',
+      lineHeight: '1.15',
+      transform: el.skewX ? `skewX(${-el.skewX}deg)` : 'none',
     };
   }
 }

@@ -5,6 +5,7 @@ import {
   TextElement,
   ImageElement,
   PhoneMockupElement,
+  BannerElement,
   createDefaultState,
   generateId,
 } from '../models/canvas-element.model';
@@ -178,6 +179,48 @@ export class CanvasStateService {
       glowSize: 20,
       frameType: 'original',
       frameColor: '#1c1c1e',
+    };
+    this.updateActiveState((s) => ({
+      ...s,
+      elements: [...s.elements, el],
+      selectedElementId: el.id,
+    }));
+    return el;
+  }
+
+  addBanner(content?: string): BannerElement {
+    const el: BannerElement = {
+      id: generateId(),
+      type: 'banner',
+      x: 90,
+      y: 100,
+      width: 900,
+      height: 120,
+      rotation: 0,
+      zIndex: this.state().elements.length + 1,
+      content: content ?? 'Titre',
+      fontFamily: 'Poppins',
+      fontSize: 48,
+      fontWeight: '700',
+      fontStyle: 'normal',
+      color: '#ffffff',
+      textAlign: 'center',
+      padding: 16,
+      bgType: 'gradient',
+      bgColor: '#6366f1',
+      gradientStart: '#6366f1',
+      gradientEnd: '#a855f7',
+      gradientAngle: 90,
+      borderEnabled: true,
+      borderColor: '#ffffff40',
+      borderWidth: 2,
+      borderRadius: 12,
+      shadowEnabled: true,
+      shadowColor: '#00000060',
+      shadowOffsetX: 0,
+      shadowOffsetY: 8,
+      shadowBlur: 24,
+      skewX: 0,
     };
     this.updateActiveState((s) => ({
       ...s,
