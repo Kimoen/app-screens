@@ -11,6 +11,7 @@ import {
 } from '../models/canvas-element.model';
 
 const STORAGE_KEY = 'app-screens-data';
+const MAX_HISTORY = 50;
 
 function loadFromStorage(): { tabs: CanvasState[]; activeIndex: number } | null {
   try {
@@ -29,8 +30,15 @@ export class CanvasStateService {
   private tabs = signal<CanvasState[]>([createDefaultState()]);
   private activeTabIndex = signal<number>(0);
 
+  // History
+  private past = signal<{ tabs: CanvasState[]; activeIndex: number }[]>([]);
+  private future = signal<{ tabs: CanvasState[]; activeIndex: number }[]>([]);
+  private ignoreHistory = false;
+
   readonly activeTabIdx = this.activeTabIndex.asReadonly();
   readonly allTabs = this.tabs.asReadonly();
+  readonly canUndo = computed(() => this.past().length > 0);
+  readonly canRedo = computed(() => this.future().length > 0);
 
   constructor() {
     const saved = loadFromStorage();
@@ -71,6 +79,7 @@ export class CanvasStateService {
   // --- Tab Management ---
 
   addTab() {
+    this.pushHistory();
     this.tabs.update(tabs => [...tabs, createDefaultState()]);
     // Switch to the new tab
     this.activeTabIndex.set(this.tabs().length - 1);
@@ -78,6 +87,7 @@ export class CanvasStateService {
 
   removeTab(index: number) {
     if (this.tabs().length <= 1) return; // Don't remove the last tab
+    this.pushHistory();
 
     this.tabs.update(tabs => tabs.filter((_, i) => i !== index));
 
@@ -93,9 +103,64 @@ export class CanvasStateService {
     }
   }
 
+  // --- Undo / Redo ---
+
+  undo() {
+    const past = this.past();
+    if (past.length === 0) return;
+
+    const previous = past[past.length - 1];
+    const newPast = past.slice(0, -1);
+
+    // Current state becomes future
+    this.future.update(f => [{ tabs: this.tabs(), activeIndex: this.activeTabIndex() }, ...f]);
+
+    // Restore previous
+    this.ignoreHistory = true;
+    this.tabs.set(previous.tabs);
+    this.activeTabIndex.set(previous.activeIndex);
+    this.ignoreHistory = false;
+
+    this.past.set(newPast);
+  }
+
+  redo() {
+    const future = this.future();
+    if (future.length === 0) return;
+
+    const next = future[0];
+    const newFuture = future.slice(1);
+
+    // Current state becomes past
+    this.past.update(p => [...p, { tabs: this.tabs(), activeIndex: this.activeTabIndex() }]);
+
+    // Restore next
+    this.ignoreHistory = true;
+    this.tabs.set(next.tabs);
+    this.activeTabIndex.set(next.activeIndex);
+    this.ignoreHistory = false;
+
+    this.future.set(newFuture);
+  }
+
+  public pushHistory() {
+    if (this.ignoreHistory) return;
+
+    const current = { tabs: this.tabs(), activeIndex: this.activeTabIndex() };
+    this.past.update(p => {
+      const newPast = [...p, current];
+      if (newPast.length > MAX_HISTORY) {
+        return newPast.slice(newPast.length - MAX_HISTORY);
+      }
+      return newPast;
+    });
+    this.future.set([]);
+  }
+
   // --- State Updates (Always target active tab) ---
 
-  private updateActiveState(updater: (s: CanvasState) => CanvasState) {
+  private updateActiveState(updater: (s: CanvasState) => CanvasState, skipHistory = false) {
+    if (!skipHistory) this.pushHistory();
     this.tabs.update(tabs => {
       const idx = this.activeTabIndex();
       const newTabs = [...tabs];
@@ -128,7 +193,7 @@ export class CanvasStateService {
 
   // Selection
   selectElement(id: string | null) {
-    this.updateActiveState((s) => ({ ...s, selectedElementId: id }));
+    this.updateActiveState((s) => ({ ...s, selectedElementId: id }), true);
   }
 
   // Add elements
@@ -253,23 +318,23 @@ export class CanvasStateService {
   }
 
   // Update element
-  updateElement(id: string, changes: Partial<CanvasElement>) {
+  updateElement(id: string, changes: Partial<CanvasElement>, skipHistory = false) {
     this.updateActiveState((s) => ({
       ...s,
       elements: s.elements.map((el) =>
         el.id === id ? ({ ...el, ...changes } as CanvasElement) : el
       ),
-    }));
+    }), skipHistory);
   }
 
   // Move element
-  moveElement(id: string, x: number, y: number) {
-    this.updateElement(id, { x, y });
+  moveElement(id: string, x: number, y: number, skipHistory = false) {
+    this.updateElement(id, { x, y }, skipHistory);
   }
 
   // Resize element
-  resizeElement(id: string, width: number, height: number) {
-    this.updateElement(id, { width: Math.max(20, width), height: Math.max(20, height) });
+  resizeElement(id: string, width: number, height: number, skipHistory = false) {
+    this.updateElement(id, { width: Math.max(20, width), height: Math.max(20, height) }, skipHistory);
   }
 
   // Duplicate element

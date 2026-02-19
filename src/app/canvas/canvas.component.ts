@@ -26,8 +26,8 @@ export class CanvasComponent {
   selectedId = this.canvasState.selectedElementId;
   bgStyle = this.canvasState.backgroundStyle;
 
-  private dragging: { id: string; startMouseX: number; startMouseY: number; startElX: number; startElY: number } | null = null;
-  private resizing: { id: string; startX: number; startY: number; startW: number; startH: number; ratio: number | null } | null = null;
+  private dragging: { id: string; startMouseX: number; startMouseY: number; startElX: number; startElY: number; historySaved: boolean } | null = null;
+  private resizing: { id: string; startX: number; startY: number; startW: number; startH: number; ratio: number | null; historySaved: boolean } | null = null;
 
   get canvasElement(): HTMLDivElement {
     return this.canvasEl.nativeElement;
@@ -45,6 +45,7 @@ export class CanvasComponent {
       startMouseY: event.clientY,
       startElX: element.x,
       startElY: element.y,
+      historySaved: false,
     };
   }
 
@@ -63,6 +64,7 @@ export class CanvasComponent {
       startW: element.width,
       startH: element.height,
       ratio: lockRatio ? element.width / element.height : null,
+      historySaved: false,
     };
   }
 
@@ -71,17 +73,28 @@ export class CanvasComponent {
     const scale = this.displayScale;
 
     if (this.dragging) {
+      if (!this.dragging.historySaved) {
+        this.canvasState.pushHistory();
+        this.dragging.historySaved = true;
+      }
+
       const dx = (event.clientX - this.dragging.startMouseX) / scale;
       const dy = (event.clientY - this.dragging.startMouseY) / scale;
       this.canvasState.moveElement(
         this.dragging.id,
         Math.round(this.dragging.startElX + dx),
-        Math.round(this.dragging.startElY + dy)
+        Math.round(this.dragging.startElY + dy),
+        true // Skip history during drag
       );
       return;
     }
 
     if (this.resizing) {
+      if (!this.resizing.historySaved) {
+        this.canvasState.pushHistory();
+        this.resizing.historySaved = true;
+      }
+
       const dx = (event.clientX - this.resizing.startX) / scale;
       const dy = (event.clientY - this.resizing.startY) / scale;
 
@@ -96,7 +109,8 @@ export class CanvasComponent {
       this.canvasState.resizeElement(
         this.resizing.id,
         Math.round(newW),
-        Math.round(newH)
+        Math.round(newH),
+        true // Skip history during resize
       );
     }
   }

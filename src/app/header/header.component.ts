@@ -1,4 +1,4 @@
-import { Component, inject, Output, EventEmitter } from '@angular/core';
+import { Component, inject, Output, EventEmitter, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslationService } from '../i18n/translation.service';
@@ -33,6 +33,22 @@ import { CanvasStateService } from '../services/canvas-state.service';
           </svg>
           {{ 'toolbar.exportAllTabs' | translate }}
         </button>
+
+        <!-- Undo / Redo -->
+        <div class="undo-redo-group">
+          <button class="header-btn icon-only" (click)="undo()" [disabled]="!canUndo()" title="Undo (Ctrl+Z)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 7v6h6"/>
+              <path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/>
+            </svg>
+          </button>
+          <button class="header-btn icon-only" (click)="redo()" [disabled]="!canRedo()" title="Redo (Ctrl+Y)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 7v6h-6"/>
+              <path d="M3 17a9 9 0 0 1 9-9 9 9 0 0 1 6 2.3l3 2.7"/>
+            </svg>
+          </button>
+        </div>
 
         <!-- Clear All -->
         <button class="header-btn clear-all-btn" (click)="clearAllRequested.emit()">
@@ -121,6 +137,15 @@ import { CanvasStateService } from '../services/canvas-state.service';
       gap: 8px;
     }
 
+    .undo-redo-group {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      margin-right: 8px;
+      padding-right: 8px;
+      border-right: 1px solid var(--border);
+    }
+
     .header-btn {
       display: flex;
       align-items: center;
@@ -132,6 +157,26 @@ import { CanvasStateService } from '../services/canvas-state.service';
       font-weight: 500;
       cursor: pointer;
       transition: all var(--transition);
+      background: var(--bg-surface);
+      color: var(--text-primary);
+
+      &:hover:not(:disabled) {
+        background: var(--bg-surface-hover);
+        border-color: var(--accent);
+      }
+
+      &:disabled {
+        opacity: 0.4;
+        cursor: default;
+      }
+    }
+
+    .icon-only {
+      padding: 8px;
+      
+      svg {
+        display: block;
+      }
     }
 
     .export-btn {
@@ -243,11 +288,37 @@ export class HeaderComponent {
 
   allTabs = this.canvasState.allTabs;
   screenMode = this.canvasState.screenMode;
+  canUndo = this.canvasState.canUndo;
+  canRedo = this.canvasState.canRedo;
 
   languages = [
     { code: 'fr', label: 'Français', flag: '🇫🇷' },
     { code: 'en', label: 'English', flag: '🇬🇧' },
   ];
+
+  @HostListener('window:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'z') {
+      event.preventDefault();
+      if (event.shiftKey) {
+        this.redo();
+      } else {
+        this.undo();
+      }
+    }
+    if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'y') {
+      event.preventDefault();
+      this.redo();
+    }
+  }
+
+  undo() {
+    this.canvasState.undo();
+  }
+
+  redo() {
+    this.canvasState.redo();
+  }
 
   get currentLang() {
     return this.i18n.lang();
