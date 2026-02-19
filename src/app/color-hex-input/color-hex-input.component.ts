@@ -32,22 +32,29 @@ import { FormsModule } from '@angular/forms';
     input[type='color'] {
       width: 32px;
       height: 24px;
-      border: 1px solid #444;
-      border-radius: 3px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
       background: none;
       cursor: pointer;
       padding: 1px;
       flex-shrink: 0;
+      transition: border-color var(--transition);
     }
     .hex-input {
       width: 72px;
-      background: #1e293b;
-      color: #e0e0e0;
-      border: 1px solid #444;
-      border-radius: 4px;
-      padding: 3px 6px;
+      background: var(--bg-input);
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 4px 6px;
       font-size: 11px;
-      font-family: monospace;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      transition: all var(--transition);
+
+      &:focus {
+        border-color: var(--accent);
+        outline: none;
+      }
     }
   `],
 })

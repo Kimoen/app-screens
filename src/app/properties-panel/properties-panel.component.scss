@@ -2,28 +2,34 @@
   padding: 16px;
   height: 100%;
   overflow-y: auto;
-  color: #e0e0e0;
+  color: var(--text-primary);
+  transition: color var(--transition);
 
   h3 {
     margin: 0 0 16px;
-    font-size: 16px;
-    color: #fff;
-    border-bottom: 1px solid #333;
-    padding-bottom: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 10px;
+    transition: color var(--transition), border-color var(--transition);
   }
 }
 
 .section {
   margin-bottom: 16px;
   padding-bottom: 12px;
-  border-bottom: 1px solid #2a2a2a;
+  border-bottom: 1px solid var(--border-subtle);
+  transition: border-color var(--transition);
 
   h4 {
     margin: 0 0 8px;
-    font-size: 12px;
+    font-size: 11px;
     text-transform: uppercase;
-    color: #888;
-    letter-spacing: 0.5px;
+    color: var(--text-muted);
+    letter-spacing: 0.8px;
+    font-weight: 600;
+    transition: color var(--transition);
   }
 }
 
@@ -35,66 +41,87 @@
 
   label {
     font-size: 11px;
-    color: #aaa;
+    color: var(--text-secondary);
     min-width: 55px;
+    transition: color var(--transition);
   }
 
   input[type='number'] {
     width: 100%;
-    background: #1e293b;
-    color: #e0e0e0;
-    border: 1px solid #444;
-    border-radius: 4px;
-    padding: 4px 6px;
+    background: var(--bg-input);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 6px 8px;
     font-size: 12px;
+    transition: all var(--transition);
+
+    &:focus {
+      border-color: var(--accent);
+      outline: none;
+    }
   }
 
   input[type='color'] {
     width: 32px;
     height: 24px;
-    border: 1px solid #444;
-    border-radius: 3px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
     background: none;
     cursor: pointer;
     padding: 1px;
+    transition: border-color var(--transition);
   }
 
   input[type='range'] {
     flex: 1;
-    accent-color: #3b82f6;
+    accent-color: var(--accent);
   }
 
   input[type='checkbox'] {
-    accent-color: #3b82f6;
+    accent-color: var(--accent);
   }
 
   select {
     width: 100%;
-    background: #1e293b;
-    color: #e0e0e0;
-    border: 1px solid #444;
-    border-radius: 4px;
-    padding: 4px 6px;
+    background: var(--bg-input);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 6px 8px;
     font-size: 12px;
+    transition: all var(--transition);
+
+    &:focus {
+      border-color: var(--accent);
+      outline: none;
+    }
   }
 
   textarea {
     width: 100%;
-    background: #1e293b;
-    color: #e0e0e0;
-    border: 1px solid #444;
-    border-radius: 4px;
-    padding: 6px;
+    background: var(--bg-input);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 8px;
     font-size: 12px;
     resize: vertical;
     font-family: inherit;
+    transition: all var(--transition);
+
+    &:focus {
+      border-color: var(--accent);
+      outline: none;
+    }
   }
 
   .value {
     font-size: 11px;
-    color: #888;
+    color: var(--text-muted);
     min-width: 40px;
     text-align: right;
+    transition: color var(--transition);
   }
 }
 
@@ -110,29 +137,33 @@
 }
 
 .btn {
-  padding: 6px 12px;
+  padding: 7px 12px;
   border: none;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   cursor: pointer;
   font-size: 12px;
+  font-weight: 500;
   width: 100%;
   margin-bottom: 6px;
+  transition: all var(--transition);
 
   &.btn-secondary {
-    background: #374151;
-    color: #e0e0e0;
+    background: var(--bg-surface-raised);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
 
     &:hover {
-      background: #4b5563;
+      background: var(--bg-surface-hover);
+      border-color: var(--accent);
     }
   }
 
   &.btn-danger {
-    background: #ef4444;
+    background: var(--danger);
     color: #fff;
 
     &:hover {
-      background: #dc2626;
+      background: var(--danger-hover);
     }
   }
 }
@@ -152,7 +183,8 @@
   align-items: center;
   justify-content: center;
   height: 200px;
-  color: #666;
+  color: var(--text-muted);
   font-size: 13px;
   text-align: center;
+  transition: color var(--transition);
 }

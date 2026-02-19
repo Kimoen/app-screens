@@ -18,9 +18,9 @@ export const fr: Record<string, string> = {
   'toolbar.gradStart': 'Début',
   'toolbar.gradEnd': 'Fin',
   'toolbar.gradAngle': 'Angle ({angle}°)',
-  'toolbar.exportSingle': 'Exporter PNG (1080x1920)',
-  'toolbar.exportMultiple': 'Exporter {count} PNG (1080x1920)',
-  'toolbar.exportAllTabs': 'Tout exporter ({count})',
+  'toolbar.exportSingle': 'Exporter en PNG',
+  'toolbar.exportMultiple': 'Exporter {count} PNG',
+  'toolbar.exportAllTabs': 'Tout exporter',
   'toolbar.clearAll': 'Tout effacer',
 
   // Properties panel
@@ -104,4 +104,8 @@ export const fr: Record<string, string> = {
 
   // Language switcher
   'lang.switch': 'EN',
+
+  // Theme
+  'theme.light': 'Mode clair',
+  'theme.dark': 'Mode sombre',
 };

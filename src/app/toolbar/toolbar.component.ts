@@ -18,15 +18,11 @@ export class ToolbarComponent {
   private canvasState = inject(CanvasStateService);
   private i18n = inject(TranslationService);
 
-  @Output() exportRequested = new EventEmitter<void>();
-  @Output() exportAllRequested = new EventEmitter<void>();
   @Output() screenModeChanged = new EventEmitter<void>();
-  @Output() clearAllRequested = new EventEmitter<void>();
 
   builtinImages = BUILTIN_IMAGES;
   state = this.canvasState.canvasState;
   screenMode = this.canvasState.screenMode;
-  allTabs = this.canvasState.allTabs;
 
   // Background controls
   bgType: 'solid' | 'gradient' = 'gradient';
@@ -107,10 +103,6 @@ export class ToolbarComponent {
     this.canvasState.setGradientAngle(this.gradAngle);
   }
 
-  clearAll() {
-    this.clearAllRequested.emit();
-  }
-
   resetToolbarBgState() {
     this.bgType = 'gradient';
     this.bgColor = '#1a1a2e';
@@ -124,11 +116,4 @@ export class ToolbarComponent {
     this.screenModeChanged.emit();
   }
 
-  exportPng() {
-    this.exportRequested.emit();
-  }
-
-  exportAll() {
-    this.exportAllRequested.emit();
-  }
 }

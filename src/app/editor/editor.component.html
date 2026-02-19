@@ -1,10 +1,10 @@
 <div class="app-container">
-  <app-header />
+  <app-header (exportRequested)="onExport()" (exportAllRequested)="onExportAll()"
+    (clearAllRequested)="onClearAllRequested()" />
   <div class="editor-layout">
     <!-- Left: Toolbar -->
     <aside class="sidebar left-sidebar">
-      <app-toolbar (exportRequested)="onExport()" (exportAllRequested)="onExportAll()"
-        (screenModeChanged)="computeScale()" (clearAllRequested)="onClearAllRequested()" />
+      <app-toolbar (screenModeChanged)="computeScale()" />
     </aside>
 
     <!-- Center: Canvas -->
@@ -15,7 +15,9 @@
         <div class="tab-item" [class.active]="i === activeTabIdx()" (click)="onSelectTab(i)">
           <span>Screen {{ i + 1 }}</span>
           @if (tabs().length > 1) {
-          <button class="close-tab-btn" (click)="onRemoveTab(i, $event)">×</button>
+          <div class="tab-actions">
+            <button class="close-tab-btn" (click)="onRemoveTab(i, $event)">×</button>
+          </div>
           }
         </div>
         }
@@ -31,9 +33,22 @@
       </div>
 
       <div class="zoom-controls">
-        <button class="zoom-btn" (click)="zoomOut()" [disabled]="canvasScale <= 0.1" title="{{ 'zoom.out' | translate }}">−</button>
-        <button class="zoom-label" (click)="zoomReset()" title="{{ 'zoom.reset' | translate }}">{{ zoomPercent }}%</button>
-        <button class="zoom-btn" (click)="zoomIn()" [disabled]="canvasScale >= 1" title="{{ 'zoom.in' | translate }}">+</button>
+        <button class="export-btn-floating" (click)="onExport()" title="{{ 'toolbar.exportSingle' | translate }}">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <polyline points="7 10 12 15 17 10" />
+            <line x1="12" y1="15" x2="12" y2="3" />
+          </svg>
+          <span>{{ 'toolbar.exportSingle' | translate }}</span>
+        </button>
+        <div class="zoom-divider"></div>
+        <button class="zoom-btn" (click)="zoomOut()" [disabled]="canvasScale <= 0.1"
+          title="{{ 'zoom.out' | translate }}">−</button>
+        <button class="zoom-label" (click)="zoomReset()" title="{{ 'zoom.reset' | translate }}">{{ zoomPercent
+          }}%</button>
+        <button class="zoom-btn" (click)="zoomIn()" [disabled]="canvasScale >= 1"
+          title="{{ 'zoom.in' | translate }}">+</button>
       </div>
     </main>
 

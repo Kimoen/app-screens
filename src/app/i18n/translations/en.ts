@@ -20,7 +20,7 @@ export const en: Record<string, string> = {
   'toolbar.gradAngle': 'Angle ({angle}°)',
   'toolbar.exportSingle': 'Export PNG (1080x1920)',
   'toolbar.exportMultiple': 'Export {count} PNG (1080x1920)',
-  'toolbar.exportAllTabs': 'Export All Tabs ({count})',
+  'toolbar.exportAllTabs': 'Export all screens ({count})',
   'toolbar.clearAll': 'Clear all',
 
   // Properties panel
@@ -104,4 +104,8 @@ export const en: Record<string, string> = {
 
   // Language switcher
   'lang.switch': 'FR',
+
+  // Theme
+  'theme.light': 'Light mode',
+  'theme.dark': 'Dark mode',
 };

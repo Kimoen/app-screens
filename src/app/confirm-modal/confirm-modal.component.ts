@@ -20,25 +20,29 @@ import { TranslatePipe } from '../i18n/translate.pipe';
     .overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.6);
+      background: var(--overlay);
+      backdrop-filter: blur(4px);
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 10000;
     }
     .modal {
-      background: #1e1e1e;
-      border: 1px solid #333;
-      border-radius: 12px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
       padding: 24px 32px;
       min-width: 340px;
       max-width: 460px;
+      box-shadow: var(--shadow-lg);
+      transition: background var(--transition), border-color var(--transition);
     }
     .message {
-      color: #eee;
+      color: var(--text-primary);
       font-size: 15px;
       margin: 0 0 20px;
-      line-height: 1.4;
+      line-height: 1.5;
+      transition: color var(--transition);
     }
     .actions {
       display: flex;
@@ -48,24 +52,27 @@ import { TranslatePipe } from '../i18n/translate.pipe';
     .btn {
       padding: 8px 20px;
       border: none;
-      border-radius: 6px;
+      border-radius: var(--radius-sm);
       font-size: 13px;
+      font-weight: 500;
       cursor: pointer;
-      transition: background 0.15s;
+      transition: all var(--transition);
     }
     .btn-cancel {
-      background: #333;
-      color: #ccc;
+      background: var(--bg-surface-raised);
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
     }
     .btn-cancel:hover {
-      background: #444;
+      background: var(--bg-surface-hover);
+      color: var(--text-primary);
     }
     .btn-confirm {
-      background: #ef4444;
+      background: var(--danger);
       color: #fff;
     }
     .btn-confirm:hover {
-      background: #dc2626;
+      background: var(--danger-hover);
     }
   `],
 })

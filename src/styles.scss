@@ -1,3 +1,111 @@
+// ============================================
+// Design System - CSS Custom Properties
+// ============================================
+
+// Default: Dark theme
+:root,
+.theme-dark {
+  // Backgrounds
+  --bg-app: #0c0c0f;
+  --bg-surface: #16161a;
+  --bg-surface-raised: #1e1e24;
+  --bg-surface-hover: #252530;
+  --bg-input: #1a1a22;
+  --bg-canvas: #111115;
+
+  // Text
+  --text-primary: #f0f0f5;
+  --text-secondary: #8b8b9e;
+  --text-muted: #5a5a6e;
+  --text-inverse: #1a1a2e;
+
+  // Borders
+  --border: #2a2a35;
+  --border-subtle: #222230;
+  --border-focus: #6366f1;
+
+  // Accent
+  --accent: #6366f1;
+  --accent-hover: #818cf8;
+  --accent-subtle: rgba(99, 102, 241, 0.15);
+
+  // Semantic
+  --success: #22c55e;
+  --success-hover: #16a34a;
+  --danger: #f43f5e;
+  --danger-hover: #e11d48;
+
+  // Shadows
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+  --shadow-canvas: 0 0 60px rgba(0, 0, 0, 0.6);
+
+  // Overlay
+  --overlay: rgba(0, 0, 0, 0.6);
+
+  // Scrollbar
+  --scrollbar-track: #16161a;
+  --scrollbar-thumb: #3a3a48;
+  --scrollbar-thumb-hover: #4a4a58;
+
+  // Misc
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --transition: 0.2s ease;
+}
+
+.theme-light {
+  // Backgrounds
+  --bg-app: #f4f5f9;
+  --bg-surface: #ffffff;
+  --bg-surface-raised: #f0f1f6;
+  --bg-surface-hover: #e8e9f0;
+  --bg-input: #f4f5f9;
+  --bg-canvas: #e4e6ed;
+
+  // Text
+  --text-primary: #1a1a2e;
+  --text-secondary: #64648c;
+  --text-muted: #9898b0;
+  --text-inverse: #f0f0f5;
+
+  // Borders
+  --border: #dcdee8;
+  --border-subtle: #e8eaf2;
+  --border-focus: #6366f1;
+
+  // Accent
+  --accent: #6366f1;
+  --accent-hover: #4f46e5;
+  --accent-subtle: rgba(99, 102, 241, 0.1);
+
+  // Semantic
+  --success: #16a34a;
+  --success-hover: #15803d;
+  --danger: #e11d48;
+  --danger-hover: #be123c;
+
+  // Shadows
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.1);
+  --shadow-canvas: 0 0 60px rgba(0, 0, 0, 0.12);
+
+  // Overlay
+  --overlay: rgba(0, 0, 0, 0.3);
+
+  // Scrollbar
+  --scrollbar-track: #f0f1f6;
+  --scrollbar-thumb: #c4c6d0;
+  --scrollbar-thumb-hover: #a8aab8;
+}
+
+// ============================================
+// Global Reset & Base
+// ============================================
+
 * {
   margin: 0;
   padding: 0;
@@ -7,25 +115,39 @@
 html, body {
   height: 100%;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background: #0f0f0f;
-  color: #e0e0e0;
+  background: var(--bg-app);
+  color: var(--text-primary);
   overflow: hidden;
+  transition: background var(--transition), color var(--transition);
 }
 
-// Scrollbar styling
+// ============================================
+// Scrollbar
+// ============================================
+
 ::-webkit-scrollbar {
   width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #1a1a1a;
+  background: var(--scrollbar-track);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #444;
+  background: var(--scrollbar-thumb);
   border-radius: 3px;
 
   &:hover {
-    background: #555;
+    background: var(--scrollbar-thumb-hover);
   }
+}
+
+// ============================================
+// Focus visible for accessibility
+// ============================================
+
+:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
 }

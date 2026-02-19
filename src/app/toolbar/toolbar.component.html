@@ -70,21 +70,4 @@
     </div>
     }
   </section>
-
-  <!-- Actions -->
-  <section class="toolbar-section">
-    <div class="btn-group">
-      @if (screenMode() === 1) {
-      <button class="btn btn-export" (click)="exportPng()">{{ 'toolbar.exportSingle' | translate }}</button>
-      } @else {
-      <button class="btn btn-export" (click)="exportPng()">{{ 'toolbar.exportMultiple' | translate : { count:
-        screenMode() } }}</button>
-      }
-      @if (allTabs().length > 1) {
-      <button class="btn btn-export-all" (click)="exportAll()">{{ 'toolbar.exportAllTabs' | translate : { count:
-        allTabs().length } }}</button>
-      }
-      <button class="btn btn-danger" (click)="clearAll()">{{ 'toolbar.clearAll' | translate }}</button>
-    </div>
-  </section>
 </div>

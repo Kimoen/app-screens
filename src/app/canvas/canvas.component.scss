@@ -9,7 +9,7 @@
   position: relative;
   overflow: hidden;
   transform-origin: top left;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-md);
 }
 
 .split-guide {
@@ -27,7 +27,7 @@
   user-select: none;
 
   &.selected {
-    outline: 3px dashed rgba(100, 180, 255, 0.8);
+    outline: 3px dashed rgba(99, 102, 241, 0.8);
     outline-offset: 2px;
   }
 
@@ -52,13 +52,13 @@
   right: -6px;
   width: 14px;
   height: 14px;
-  background: #64b4ff;
+  background: var(--accent);
   border: 2px solid #fff;
   border-radius: 2px;
   cursor: se-resize;
   z-index: 9999;
 
   &:hover {
-    background: #3d9df5;
+    background: var(--accent-hover);
   }
 }
