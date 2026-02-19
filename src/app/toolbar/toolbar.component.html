@@ -71,19 +71,6 @@
     }
   </section>
 
-  <!-- Layouts -->
-  <section class="toolbar-section">
-    <h3>{{ 'toolbar.layouts' | translate }}</h3>
-    <div class="layout-list">
-      @for (layout of layouts; track layout.nameKey) {
-      <button class="btn btn-layout" (click)="applyLayout(layout)">
-        <strong>{{ layout.nameKey | translate }}</strong>
-        <small>{{ layout.descriptionKey | translate }}</small>
-      </button>
-      }
-    </div>
-  </section>
-
   <!-- Actions -->
   <section class="toolbar-section">
     <div class="btn-group">

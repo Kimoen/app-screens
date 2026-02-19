@@ -162,16 +162,12 @@ export class CanvasComponent {
     const bg = el.bgType === 'gradient'
       ? `linear-gradient(${el.gradientAngle}deg, ${el.gradientStart}, ${el.gradientEnd})`
       : el.bgColor;
-    const shadow = el.shadowEnabled
-      ? `${el.shadowOffsetX}px ${el.shadowOffsetY}px ${el.shadowBlur}px ${el.shadowColor}`
-      : 'none';
     return {
       width: '100%',
       height: '100%',
       background: bg,
       border: el.borderEnabled ? `${el.borderWidth}px solid ${el.borderColor}` : 'none',
       borderRadius: `${el.borderRadius}px`,
-      boxShadow: shadow,
       boxSizing: 'border-box',
       overflow: 'hidden',
       transform: el.skewX ? `skewX(${el.skewX}deg)` : 'none',

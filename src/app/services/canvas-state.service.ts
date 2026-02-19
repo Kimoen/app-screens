@@ -1,4 +1,4 @@
-import { Injectable, signal, computed } from '@angular/core';
+import { Injectable, signal, computed, effect } from '@angular/core';
 import {
   CanvasState,
   CanvasElement,
@@ -10,6 +10,20 @@ import {
   generateId,
 } from '../models/canvas-element.model';
 
+const STORAGE_KEY = 'app-screens-data';
+
+function loadFromStorage(): { tabs: CanvasState[]; activeIndex: number } | null {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return null;
+    const data = JSON.parse(raw);
+    if (Array.isArray(data.tabs) && data.tabs.length > 0) {
+      return { tabs: data.tabs, activeIndex: data.activeIndex ?? 0 };
+    }
+  } catch { /* ignore corrupt data */ }
+  return null;
+}
+
 @Injectable({ providedIn: 'root' })
 export class CanvasStateService {
   private tabs = signal<CanvasState[]>([createDefaultState()]);
@@ -17,6 +31,19 @@ export class CanvasStateService {
 
   readonly activeTabIdx = this.activeTabIndex.asReadonly();
   readonly allTabs = this.tabs.asReadonly();
+
+  constructor() {
+    const saved = loadFromStorage();
+    if (saved) {
+      this.tabs.set(saved.tabs);
+      this.activeTabIndex.set(Math.min(saved.activeIndex, saved.tabs.length - 1));
+    }
+
+    effect(() => {
+      const data = { tabs: this.tabs(), activeIndex: this.activeTabIndex() };
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    });
+  }
 
   // The "current" state is now computed from the active tab
   readonly state = computed(() => this.tabs()[this.activeTabIndex()]);
@@ -215,11 +242,6 @@ export class CanvasStateService {
       borderColor: '#ffffff40',
       borderWidth: 2,
       borderRadius: 12,
-      shadowEnabled: true,
-      shadowColor: '#00000060',
-      shadowOffsetX: 0,
-      shadowOffsetY: 8,
-      shadowBlur: 24,
       skewX: 0,
     };
     this.updateActiveState((s) => ({
@@ -248,6 +270,18 @@ export class CanvasStateService {
   // Resize element
   resizeElement(id: string, width: number, height: number) {
     this.updateElement(id, { width: Math.max(20, width), height: Math.max(20, height) });
+  }
+
+  // Duplicate element
+  duplicateElement(id: string) {
+    const el = this.state().elements.find((e) => e.id === id);
+    if (!el) return;
+    const copy = { ...el, id: generateId(), x: el.x + 30, y: el.y + 30, zIndex: this.state().elements.length + 1 } as CanvasElement;
+    this.updateActiveState((s) => ({
+      ...s,
+      elements: [...s.elements, copy],
+      selectedElementId: copy.id,
+    }));
   }
 
   // Delete element

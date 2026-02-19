@@ -102,16 +102,14 @@
         </select>
       </div>
     </div>
-    <div class="field-row">
-      <div class="field">
-        <label>{{ 'props.color' | translate }}</label>
-        <app-color-hex-input [color]="t.color" (colorChange)="updateProp('color', $event)" />
-      </div>
-      <div class="field">
-        <label>{{ 'props.background' | translate }}</label>
-        <app-color-hex-input [color]="t.backgroundColor === 'transparent' ? '#000000' : t.backgroundColor"
-          (colorChange)="updateProp('backgroundColor', $event)" />
-      </div>
+    <div class="field">
+      <label>{{ 'props.color' | translate }}</label>
+      <app-color-hex-input [color]="t.color" (colorChange)="updateProp('color', $event)" />
+    </div>
+    <div class="field">
+      <label>{{ 'props.background' | translate }}</label>
+      <app-color-hex-input [color]="t.backgroundColor === 'transparent' ? '#000000' : t.backgroundColor"
+        (colorChange)="updateProp('backgroundColor', $event)" />
     </div>
     <div class="field">
       <label>
@@ -120,16 +118,15 @@
         {{ 'props.transparentBg' | translate }}
       </label>
     </div>
-    <div class="field-row">
-      <div class="field">
-        <label>Padding</label>
-        <input type="number" [value]="t.padding" min="0" max="100" (change)="onNumberChange('padding', $event)" />
-      </div>
-      <div class="field">
-        <label>Radius</label>
-        <input type="number" [value]="t.borderRadius" min="0" max="100"
-          (change)="onNumberChange('borderRadius', $event)" />
-      </div>
+    <div class="field">
+      <label>Padding</label>
+      <input type="range" min="0" max="100" [value]="t.padding" (input)="onNumberChange('padding', $event)" />
+      <span class="value">{{ t.padding }}px</span>
+    </div>
+    <div class="field">
+      <label>Radius</label>
+      <input type="range" min="0" max="100" [value]="t.borderRadius" (input)="onNumberChange('borderRadius', $event)" />
+      <span class="value">{{ t.borderRadius }}px</span>
     </div>
   </section>
   }
@@ -359,46 +356,13 @@
     }
   </section>
 
-  <section class="section">
-    <h4>{{ 'banner.shadow' | translate }}</h4>
-    <div class="field">
-      <label>
-        <input type="checkbox" [checked]="b.shadowEnabled"
-          (change)="updateProp('shadowEnabled', !b.shadowEnabled)" />
-        {{ 'banner.enableShadow' | translate }}
-      </label>
-    </div>
-    @if (b.shadowEnabled) {
-    <div class="field">
-      <label>{{ 'props.color' | translate }}</label>
-      <app-color-hex-input [color]="b.shadowColor" (colorChange)="updateProp('shadowColor', $event)" />
-    </div>
-    <div class="field-row">
-      <div class="field">
-        <label>X</label>
-        <input type="number" [value]="b.shadowOffsetX" min="-50" max="50"
-          (change)="onNumberChange('shadowOffsetX', $event)" />
-      </div>
-      <div class="field">
-        <label>Y</label>
-        <input type="number" [value]="b.shadowOffsetY" min="-50" max="50"
-          (change)="onNumberChange('shadowOffsetY', $event)" />
-      </div>
-    </div>
-    <div class="field">
-      <label>{{ 'banner.blur' | translate }}</label>
-      <input type="range" min="0" max="80" [value]="b.shadowBlur"
-        (input)="onNumberChange('shadowBlur', $event)" />
-      <span class="value">{{ b.shadowBlur }}px</span>
-    </div>
-    }
-  </section>
   }
 
   <!-- Actions -->
   <section class="section actions">
     <button class="btn btn-secondary" (click)="bringToFront()">{{ 'props.bringToFront' | translate }}</button>
     <button class="btn btn-secondary" (click)="sendToBack()">{{ 'props.sendToBack' | translate }}</button>
+    <button class="btn btn-secondary" (click)="duplicateElement()">{{ 'props.duplicate' | translate }}</button>
     <button class="btn btn-danger" (click)="deleteElement()">{{ 'props.delete' | translate }}</button>
   </section>
   } @else {

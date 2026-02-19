@@ -37,9 +37,12 @@
   }
 }
 
-.text-content,
-.banner-content {
+.text-content {
   overflow: hidden;
+  pointer-events: none;
+}
+
+.banner-content {
   pointer-events: none;
 }
 

@@ -18,7 +18,6 @@ export const fr: Record<string, string> = {
   'toolbar.gradStart': 'Début',
   'toolbar.gradEnd': 'Fin',
   'toolbar.gradAngle': 'Angle ({angle}°)',
-  'toolbar.layouts': 'Layouts',
   'toolbar.exportSingle': 'Exporter PNG (1080x1920)',
   'toolbar.exportMultiple': 'Exporter {count} PNG (1080x1920)',
   'toolbar.exportAllTabs': 'Tout exporter ({count})',
@@ -62,6 +61,7 @@ export const fr: Record<string, string> = {
   'props.glowRadius': 'Rayon',
   'props.bringToFront': 'Premier plan',
   'props.sendToBack': 'Arrière plan',
+  'props.duplicate': 'Dupliquer',
   'props.delete': 'Supprimer',
   'props.noSelection': 'Sélectionnez un élément pour voir ses propriétés',
 
@@ -74,25 +74,11 @@ export const fr: Record<string, string> = {
   'phone.styleFlat': 'Plat (Flat)',
   'phone.styleMinimal': 'Minimal',
 
-  // Layouts
-  'layout.topTextPhone.name': 'Texte en haut + Téléphone',
-  'layout.topTextPhone.desc': 'Titre accrocheur en haut, téléphone centré en bas',
-  'layout.topTextPhone.content': 'Votre titre\naccrocheur ici',
-  'layout.fullPhoneOverlay.name': 'Téléphone plein + Texte overlay',
-  'layout.fullPhoneOverlay.desc': 'Téléphone large avec texte superposé en haut',
-  'layout.fullPhoneOverlay.content': 'Texte superposé',
-  'layout.offsetPhoneSide.name': 'Téléphone décalé + Texte latéral',
-  'layout.offsetPhoneSide.desc': 'Téléphone à droite, texte à gauche verticalement centré',
-  'layout.offsetPhoneSide.content': 'Titre\ncôté\ngauche',
-
   // Banner
   'toolbar.addBanner': '+ Bandeau titre',
   'banner.text': 'Texte',
   'banner.background': 'Fond',
   'banner.gradAngle': 'Angle',
-  'banner.shadow': 'Ombre portée',
-  'banner.enableShadow': 'Activer l\'ombre',
-  'banner.blur': 'Flou',
   'banner.skew': 'Inclinaison',
 
   // Default text
@@ -104,6 +90,17 @@ export const fr: Record<string, string> = {
 
   // Page
   'page.title': 'App Screen Studio',
+
+  // Zoom
+  'zoom.in': 'Zoomer',
+  'zoom.out': 'Dézoomer',
+  'zoom.reset': 'Réinitialiser le zoom',
+
+  // Confirm modal
+  'confirm.deleteTab': 'Voulez-vous vraiment supprimer cet écran ?',
+  'confirm.clearAll': 'Voulez-vous vraiment tout effacer ?',
+  'confirm.confirm': 'Confirmer',
+  'confirm.cancel': 'Annuler',
 
   // Language switcher
   'lang.switch': 'EN',

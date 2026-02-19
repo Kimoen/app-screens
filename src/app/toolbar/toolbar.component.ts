@@ -2,7 +2,6 @@ import { Component, inject, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CanvasStateService } from '../services/canvas-state.service';
-import { LAYOUT_TEMPLATES, LayoutTemplate } from '../layouts/layout-templates';
 import { BUILTIN_IMAGES, BuiltinImage } from '../models/builtin-images';
 import { TranslationService } from '../i18n/translation.service';
 import { TranslatePipe } from '../i18n/translate.pipe';
@@ -22,8 +21,8 @@ export class ToolbarComponent {
   @Output() exportRequested = new EventEmitter<void>();
   @Output() exportAllRequested = new EventEmitter<void>();
   @Output() screenModeChanged = new EventEmitter<void>();
+  @Output() clearAllRequested = new EventEmitter<void>();
 
-  layouts = LAYOUT_TEMPLATES;
   builtinImages = BUILTIN_IMAGES;
   state = this.canvasState.canvasState;
   screenMode = this.canvasState.screenMode;
@@ -88,23 +87,6 @@ export class ToolbarComponent {
     this.canvasState.addImage(image.src, image.defaultWidth, image.defaultHeight);
   }
 
-  applyLayout(layout: LayoutTemplate) {
-    const t = (key: string) => this.i18n.t(key);
-    this.canvasState.loadLayout(
-      layout.createElements(t),
-      layout.bgType,
-      layout.bgColor,
-      layout.gradStart,
-      layout.gradEnd,
-      layout.gradAngle
-    );
-    this.bgType = layout.bgType;
-    this.bgColor = layout.bgColor;
-    this.gradStart = layout.gradStart;
-    this.gradEnd = layout.gradEnd;
-    this.gradAngle = layout.gradAngle;
-  }
-
   onBgTypeChange() {
     this.canvasState.setBackgroundType(this.bgType);
   }
@@ -126,7 +108,10 @@ export class ToolbarComponent {
   }
 
   clearAll() {
-    this.canvasState.clearAll();
+    this.clearAllRequested.emit();
+  }
+
+  resetToolbarBgState() {
     this.bgType = 'gradient';
     this.bgColor = '#1a1a2e';
     this.gradStart = '#0f0c29';

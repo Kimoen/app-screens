@@ -18,7 +18,6 @@ export const en: Record<string, string> = {
   'toolbar.gradStart': 'Start',
   'toolbar.gradEnd': 'End',
   'toolbar.gradAngle': 'Angle ({angle}°)',
-  'toolbar.layouts': 'Layouts',
   'toolbar.exportSingle': 'Export PNG (1080x1920)',
   'toolbar.exportMultiple': 'Export {count} PNG (1080x1920)',
   'toolbar.exportAllTabs': 'Export All Tabs ({count})',
@@ -62,6 +61,7 @@ export const en: Record<string, string> = {
   'props.glowRadius': 'Radius',
   'props.bringToFront': 'Bring to front',
   'props.sendToBack': 'Send to back',
+  'props.duplicate': 'Duplicate',
   'props.delete': 'Delete',
   'props.noSelection': 'Select an element to see its properties',
 
@@ -74,25 +74,11 @@ export const en: Record<string, string> = {
   'phone.styleFlat': 'Flat',
   'phone.styleMinimal': 'Minimal',
 
-  // Layouts
-  'layout.topTextPhone.name': 'Top text + Phone',
-  'layout.topTextPhone.desc': 'Catchy title on top, phone centered below',
-  'layout.topTextPhone.content': 'Your catchy\ntitle here',
-  'layout.fullPhoneOverlay.name': 'Full phone + Text overlay',
-  'layout.fullPhoneOverlay.desc': 'Large phone with text overlaid on top',
-  'layout.fullPhoneOverlay.content': 'Overlay text',
-  'layout.offsetPhoneSide.name': 'Offset phone + Side text',
-  'layout.offsetPhoneSide.desc': 'Phone on right, text vertically centered on left',
-  'layout.offsetPhoneSide.content': 'Title\non the\nleft',
-
   // Banner
   'toolbar.addBanner': '+ Title Banner',
   'banner.text': 'Text',
   'banner.background': 'Background',
   'banner.gradAngle': 'Angle',
-  'banner.shadow': 'Drop Shadow',
-  'banner.enableShadow': 'Enable shadow',
-  'banner.blur': 'Blur',
   'banner.skew': 'Skew',
 
   // Default text
@@ -104,6 +90,17 @@ export const en: Record<string, string> = {
 
   // Page
   'page.title': 'App Screen Studio',
+
+  // Zoom
+  'zoom.in': 'Zoom in',
+  'zoom.out': 'Zoom out',
+  'zoom.reset': 'Reset zoom',
+
+  // Confirm modal
+  'confirm.deleteTab': 'Are you sure you want to delete this screen?',
+  'confirm.clearAll': 'Are you sure you want to clear all elements?',
+  'confirm.confirm': 'Confirm',
+  'confirm.cancel': 'Cancel',
 
   // Language switcher
   'lang.switch': 'FR',

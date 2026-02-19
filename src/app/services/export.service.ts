@@ -22,11 +22,6 @@ export class ExportService {
     clone.querySelectorAll('.resize-handle').forEach((el) => el.remove());
     clone.querySelectorAll('.split-guide').forEach((el) => el.remove());
 
-    // Allow box-shadows to render beyond element bounds (banners, etc.)
-    clone.querySelectorAll('.canvas-element').forEach((el) => {
-      (el as HTMLElement).style.overflow = 'visible';
-    });
-
     document.body.appendChild(clone);
 
     // Small delay to let browser render the clone

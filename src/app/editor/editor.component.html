@@ -4,7 +4,7 @@
     <!-- Left: Toolbar -->
     <aside class="sidebar left-sidebar">
       <app-toolbar (exportRequested)="onExport()" (exportAllRequested)="onExportAll()"
-        (screenModeChanged)="computeScale()" />
+        (screenModeChanged)="computeScale()" (clearAllRequested)="onClearAllRequested()" />
     </aside>
 
     <!-- Center: Canvas -->
@@ -22,12 +22,18 @@
         <button class="add-tab-btn" (click)="onAddTab()">+</button>
       </div>
 
-      <div class="canvas-viewport" #canvasArea>
+      <div class="canvas-viewport" #canvasArea (wheel)="onWheel($event)">
         <div class="canvas-container" [style.width.px]="canvasWidth() * canvasScale"
           [style.height.px]="1920 * canvasScale">
           <app-canvas [style.width.px]="canvasWidth()" [style.height.px]="1920"
             [style.transform]="'scale(' + canvasScale + ')'" [displayScale]="canvasScale" />
         </div>
+      </div>
+
+      <div class="zoom-controls">
+        <button class="zoom-btn" (click)="zoomOut()" [disabled]="canvasScale <= 0.1" title="{{ 'zoom.out' | translate }}">−</button>
+        <button class="zoom-label" (click)="zoomReset()" title="{{ 'zoom.reset' | translate }}">{{ zoomPercent }}%</button>
+        <button class="zoom-btn" (click)="zoomIn()" [disabled]="canvasScale >= 1" title="{{ 'zoom.in' | translate }}">+</button>
       </div>
     </main>
 
@@ -37,3 +43,8 @@
     </aside>
   </div>
 </div>
+
+@if (confirmModal) {
+<app-confirm-modal [message]="confirmModal.message" (confirmed)="confirmModal.onConfirm()"
+  (cancelled)="onConfirmCancel()" />
+}

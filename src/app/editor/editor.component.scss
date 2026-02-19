@@ -141,11 +141,70 @@
 .canvas-container {
   flex-shrink: 0;
   position: relative;
-  margin: auto; // Centers the canvas both horizontally and vertically when it fits
+  margin: auto;
 
   app-canvas {
     display: block;
     transform-origin: top left;
     box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+  }
+}
+
+.zoom-controls {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 4px;
+  z-index: 100;
+}
+
+.zoom-btn {
+  background: none;
+  border: none;
+  color: #ccc;
+  font-size: 18px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.15s;
+
+  &:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+  }
+
+  &:disabled {
+    opacity: 0.3;
+    cursor: default;
+  }
+}
+
+.zoom-label {
+  background: none;
+  border: none;
+  color: #999;
+  font-size: 12px;
+  min-width: 48px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.15s;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ccc;
   }
 }

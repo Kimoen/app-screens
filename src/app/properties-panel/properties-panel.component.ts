@@ -107,6 +107,11 @@ export class PropertiesPanelComponent {
     input.click();
   }
 
+  duplicateElement() {
+    const el = this.selectedElement();
+    if (el) this.canvasState.duplicateElement(el.id);
+  }
+
   deleteElement() {
     const el = this.selectedElement();
     if (el) this.canvasState.deleteElement(el.id);

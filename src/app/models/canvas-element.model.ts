@@ -62,11 +62,6 @@ export interface BannerElement extends BaseCanvasElement {
   borderColor: string;
   borderWidth: number;
   borderRadius: number;
-  shadowEnabled: boolean;
-  shadowColor: string;
-  shadowOffsetX: number;
-  shadowOffsetY: number;
-  shadowBlur: number;
   skewX: number;
 }
 
