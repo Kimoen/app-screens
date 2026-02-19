@@ -20,7 +20,7 @@ export const en: Record<string, string> = {
   'toolbar.gradAngle': 'Angle ({angle}°)',
   'toolbar.exportSingle': 'Export PNG (1080x1920)',
   'toolbar.exportMultiple': 'Export {count} PNG (1080x1920)',
-  'toolbar.exportAllTabs': 'Export all screens ({count})',
+  'toolbar.exportAllTabs': 'Export all',
   'toolbar.clearAll': 'Clear all',
 
   // Properties panel
